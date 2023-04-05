@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name= "jordy_blue_dark">#85AFFF</color>
+    <color name= "jordy_blue"> #ADCAFF</color>
+    <color name="olivine_dark">#A9B865</color>
+    <color name="olivine">#B9C581</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
