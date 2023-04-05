@@ -19,7 +19,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupHeader"
+        app:layout_constraintTop_toBottomOf="@+id/headerFieldSignup"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
@@ -48,15 +48,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSignUpPassword" />
 
-    <TextView
-        android:id="@+id/signupHeader"
+
+    <LinearLayout
+        android:id="@+id/headerFieldSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/app_name"
-        android:textSize="20sp"
+        android:contentDescription="@string/app_name"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewSignup"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="18dp"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/signupHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

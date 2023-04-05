@@ -12,10 +12,11 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:maxImageSize="40dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="409dp"
