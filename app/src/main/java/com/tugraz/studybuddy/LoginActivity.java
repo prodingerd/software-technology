@@ -4,59 +4,92 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
+import android.util.Patterns;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private static final String TAG = "LoginActivity";
+    private static final int MIN_PASSWORD_LENGTH = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText editTextUsername = (EditText) findViewById(R.id.editTextUsernameLogin);
-                String email = editTextUsername.getText().toString();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
-                EditText editTextPassword = (EditText) findViewById(R.id.editTextPasswordLogin);
-                String password = editTextPassword.getText().toString();
+        if (auth.getCurrentUser() != null) {
+            startPostSignInActivity();
+        }
 
-                if(email.isEmpty())
-                {
-                    editTextUsername.setError(getString(R.string.authentication_error));
-                    return;
-                }
+        EditText editTextEmail = findViewById(R.id.editTextEmail);
+        EditText editTextPassword = findViewById(R.id.editTextPassword);
 
-                if(password.isEmpty())
-                {
-                    editTextPassword.setError(getString(R.string.authentication_error));
-                    return;
-                }
+        findViewById(R.id.buttonLogin).setOnClickListener(v -> {
+            String email = editTextEmail.getText().toString();
+            String password = editTextPassword.getText().toString();
 
-                //TODO implement proper login
-                bypassLogin();
+            if (!emailAndPasswordValid(email, password)) {
+                return;
             }
+
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "signInWithEmail:success");
+                    startPostSignInActivity();
+                } else {
+                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                    Toast.makeText(getApplicationContext(), getString(R.string.authentication_error), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
-        Button buttonRegister = (Button) findViewById(R.id.buttonRegister);
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRegisterActivity();
+        findViewById(R.id.buttonRegister).setOnClickListener(v -> {
+            String email = editTextEmail.getText().toString();
+            String password = editTextPassword.getText().toString();
+
+            if (!emailAndPasswordValid(email, password)) {
+                return;
             }
+
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "signUpWithEmail:success");
+                    startPostSignInActivity();
+                } else {
+                    Log.w(TAG, "signUpWithEmail:failure", task.getException());
+                    Toast.makeText(getApplicationContext(), getString(R.string.email_already_in_use), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
-    private void openRegisterActivity() {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean emailAndPasswordValid(String email, String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(getApplicationContext(), getString(R.string.invalid_credentials), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(getApplicationContext(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password.trim().length() < MIN_PASSWORD_LENGTH) {
+            Toast.makeText(getApplicationContext(), getString(R.string.password_too_short), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
-    private void bypassLogin() {
-        Intent intent = new Intent(this, StudyOverview.class);
-        startActivity(intent);
+    private void startPostSignInActivity() {
+        startActivity(new Intent(this, StudyOverview.class));
     }
 }
