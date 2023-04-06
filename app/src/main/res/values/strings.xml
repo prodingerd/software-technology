@@ -1,14 +1,21 @@
 <resources>
+    <!-- General -->
     <string name="app_name">StudyBuddy</string>
-    <string name= "name">Hello</string>
-    <string name="username">Username</string>
+    <string name="name">Hello</string>
+
+    <!-- LoginActivity -->
+    <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="signup_button">SignUp</string>
-    <string name="register_button">Register</string>
-    <string name="login_button">LogIn</string>
-    <string name="authentication_error">An error occurred while trying to authenticate.</string>
+    <string name="register">Register</string>
+    <string name="login">Log In</string>
+    <string name="authentication_error">Wrong email or password</string>
+    <string name="invalid_email">Your email address is invalid</string>
+    <string name="email_already_in_use">This email address is already in use</string>
+    <string name="password_too_short">Your password must be 8 characters long</string>
+    <string name="invalid_credentials">Enter a valid email and password</string>
+
+    <!-- StudyOverviewActivity -->
     <string name="title_activity_study_overview">StudyOverview</string>
     <string name="edit_course">Edit</string>
     <string name="play_course">Play</string>
-
 </resources>
