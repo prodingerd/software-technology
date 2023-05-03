@@ -6,18 +6,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class CourseRepository implements ICourseRepository<CourseModel> {
     private static final String COURSE_COLLECTION = "courses";
     private static final String TAG = "CourseRepository";
 
-    private final List<CourseModel> courses;
+    private static final List<CourseModel> courses = new ArrayList<>();
 
+    @Inject
     public CourseRepository() {
-        courses = new ArrayList<>(List.of(
-                new CourseModel("Software Technology", "Summer 2023", new Date()),
-                new CourseModel("Android Development", "Summer 2023", new Date()),
-                new CourseModel("Analysis T 10000000", "Summer 2023", new Date())
-        ));
+        if (courses.isEmpty()) {
+            courses.addAll(List.of(
+                    new CourseModel("Software Technology", "Summer 2023", new Date()),
+                    new CourseModel("Android Development", "Summer 2023", new Date()),
+                    new CourseModel("Analysis T 10000000", "Summer 2023", new Date())
+            ));
+        }
     }
 
     @Override
