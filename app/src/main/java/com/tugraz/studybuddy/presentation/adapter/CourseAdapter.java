@@ -1,4 +1,4 @@
-package com.tugraz.studybuddy.adapter;
+package com.tugraz.studybuddy.presentation.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,16 +7,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tugraz.studybuddy.Course;
 import com.tugraz.studybuddy.R;
+import com.tugraz.studybuddy.data.model.CourseModel;
 
 import java.util.List;
 
-public class CustomCourseAdapter extends RecyclerView.Adapter<CustomCourseAdapter.ViewHolder> {
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewCourseName;
         public TextView textViewCourseDescription;
         public Button buttonCourseEdit;
@@ -32,25 +33,25 @@ public class CustomCourseAdapter extends RecyclerView.Adapter<CustomCourseAdapte
         }
     }
 
-    private List<Course> courseList;
+    private final List<CourseModel> courses;
 
-    public CustomCourseAdapter(List<Course> courses) {
-        courseList = courses;
+    public CourseAdapter(List<CourseModel> courses) {
+        this.courses = courses;
     }
 
+    @NonNull
     @Override
-    public CustomCourseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CourseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View contactView = inflater.inflate(R.layout.course_list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
-    public void onBindViewHolder(CustomCourseAdapter.ViewHolder holder, int position) {
-        Course course = courseList.get(position);
+    public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
+        CourseModel course = courses.get(position);
 
         holder.textViewCourseName.setText(course.getName());
         holder.textViewCourseDescription.setText(course.getDescription());
@@ -58,6 +59,6 @@ public class CustomCourseAdapter extends RecyclerView.Adapter<CustomCourseAdapte
 
     @Override
     public int getItemCount() {
-        return courseList.size();
+        return courses.size();
     }
 }
