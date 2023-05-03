@@ -1,6 +1,7 @@
 package com.tugraz.studybuddy.data.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class CourseModel extends BaseModel {
     private String name;
@@ -14,6 +15,8 @@ public class CourseModel extends BaseModel {
         this.name = name;
         this.description = description;
         this.examDate = examDate;
+
+        setId(UUID.randomUUID().toString());
     }
 
     public String getName() {
