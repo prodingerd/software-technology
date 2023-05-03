@@ -1,4 +1,4 @@
-package com.tugraz.studybuddy;
+package com.tugraz.studybuddy.presentation.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.tugraz.studybuddy.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -90,6 +91,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startPostSignInActivity() {
-        startActivity(new Intent(this, StudyOverview.class));
+        startActivity(new Intent(this, OverviewActivity.class));
     }
 }
