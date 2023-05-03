@@ -9,15 +9,17 @@ public class CardRepository implements ICardRepository<CardModel> {
     private static final String CARD_COLLECTION = "cards";
     private static final String TAG = "CardRepository";
 
-    private final List<CardModel> cards;
+    private static final List<CardModel> cards = new ArrayList<>();
 
     public CardRepository() {
-        cards = new ArrayList<>(List.of(
-                new CardModel("What is 1+1?", "2"),
-                new CardModel("What is 1+2?", "3"),
-                new CardModel("What is 1+3?", "4"),
-                new CardModel("What is 1+4?", "5")
-        ));
+        if (cards.isEmpty()) {
+            cards.addAll(List.of(
+                    new CardModel("What is 1+1?", "2"),
+                    new CardModel("What is 1+2?", "3"),
+                    new CardModel("What is 1+3?", "4"),
+                    new CardModel("What is 1+4?", "5")
+            ));
+        }
     }
 
     @Override

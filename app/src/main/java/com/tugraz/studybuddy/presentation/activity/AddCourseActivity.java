@@ -1,20 +1,22 @@
 package com.tugraz.studybuddy.presentation.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.tugraz.studybuddy.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
 import java.util.Calendar;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class AddCourseActivity extends AppCompatActivity {
 
     //private CourseViewModel courseViewModel;
@@ -41,26 +43,29 @@ public class AddCourseActivity extends AppCompatActivity {
                     year, month, day);
             picker.show();
         });
-        //if button got back?
+
         findViewById(R.id.buttonGoBack).setOnClickListener(v -> {
             startActivity(new Intent(this, OverviewActivity.class));
         });
 
-        //if button add?
         findViewById(R.id.buttonAddCourse).setOnClickListener(v -> {
             String courseName = editTextCourseName.getText().toString();
             String courseDescription = editTextCourseDescription.getText().toString();
             String examDate = editTextExamDate.getText().toString();
 
-            if(!validinput(courseName, courseDescription, examDate)){
+            if (!validInput(courseName, courseDescription, examDate)) {
                 return;
             }
-            courseViewModel.createCourse(courseName,courseDescription,examDate);
 
+            if (courseViewModel.createCourse(courseName, courseDescription, examDate)) {
+                startActivity(new Intent(this, OverviewActivity.class));
+            } else {
+                Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
-    private boolean validinput(String examDate, String examDescription, String date ) {
+    private boolean validInput(String examDate, String examDescription, String date) {
         if (examDate.isEmpty() || examDescription.isEmpty() || date.isEmpty()) {
             Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
             return false;
