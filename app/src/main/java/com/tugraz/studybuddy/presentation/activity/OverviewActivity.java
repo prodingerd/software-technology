@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tugraz.studybuddy.R;
+import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.presentation.adapter.CourseAdapter;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class OverviewActivity extends AppCompatActivity {
+public class OverviewActivity extends AppCompatActivity implements CourseAdapter.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class OverviewActivity extends AppCompatActivity {
         CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
 
         RecyclerView courseRecycler = findViewById(R.id.recyclerViewMain);
-        CourseAdapter adapter = new CourseAdapter(courseViewModel.getAllCourses());
+        CourseAdapter adapter = new CourseAdapter(courseViewModel.getAllCourses(), this);
 
         courseRecycler.setAdapter(adapter);
         courseRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -36,5 +37,10 @@ public class OverviewActivity extends AppCompatActivity {
 
             startActivity(new Intent(this, AddCourseActivity.class));
         });
+    }
+
+    @Override
+    public void onItemClick(CourseModel course) {
+        Toast.makeText(getApplicationContext(), "Clicked course " + course.getName(), Toast.LENGTH_SHORT).show();
     }
 }
