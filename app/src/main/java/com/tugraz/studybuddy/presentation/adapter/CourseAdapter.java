@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,23 +19,26 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewCourseName;
         public TextView textViewCourseDescription;
-        public Button buttonCourseEdit;
-        public Button buttonCoursePlay;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             textViewCourseName = itemView.findViewById(R.id.course_name);
             textViewCourseDescription = itemView.findViewById(R.id.course_description);
-            buttonCourseEdit = itemView.findViewById(R.id.button_edit_course);
-            buttonCoursePlay = itemView.findViewById(R.id.button_play_course);
+        }
+        public void bind(CourseModel course, OnClickListener onClickListener) {
+            textViewCourseName.setText(course.getName());
+            textViewCourseDescription.setText(course.getDescription());
+            itemView.setOnClickListener(v -> onClickListener.onItemClick(course));
         }
     }
 
     private final List<CourseModel> courses;
+    private final OnClickListener onClickListener;
 
-    public CourseAdapter(List<CourseModel> courses) {
+    public CourseAdapter(List<CourseModel> courses, OnClickListener onClickListener) {
         this.courses = courses;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -51,14 +53,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
-        CourseModel course = courses.get(position);
-
-        holder.textViewCourseName.setText(course.getName());
-        holder.textViewCourseDescription.setText(course.getDescription());
+        holder.bind(courses.get(position), onClickListener);
     }
 
     @Override
     public int getItemCount() {
         return courses.size();
+    }
+
+    public interface OnClickListener {
+        void onItemClick(CourseModel course);
     }
 }
