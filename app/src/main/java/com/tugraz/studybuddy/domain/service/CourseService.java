@@ -44,7 +44,6 @@ public class CourseService {
     public boolean updateCourse(String id, String name, String description, String examDate) {
         try {
             // TODO Validation.
-
             // TODO Fix the simple date format.
             Date parsedExamDate = new SimpleDateFormat("dd/MM/yyyy").parse(examDate);
             CourseModel toUpdate = courseRepository.getById(id);
