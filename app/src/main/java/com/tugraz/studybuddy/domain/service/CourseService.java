@@ -40,4 +40,23 @@ public class CourseService {
 
         return true;
     }
+
+    public boolean updateCourse(String id, String name, String description, String examDate) {
+        try {
+            // TODO Validation.
+
+            // TODO Fix the simple date format.
+            Date parsedExamDate = new SimpleDateFormat("dd/MM/yyyy").parse(examDate);
+            CourseModel toUpdate = courseRepository.getById(id);
+            toUpdate.setName(name);
+            toUpdate.setDescription(description);
+            toUpdate.setExamDate(parsedExamDate);
+            courseRepository.update(toUpdate);
+        } catch (ParseException exception) {
+            Log.e(TAG, "Parsing date failed");
+            return false;
+        }
+
+        return true;
+    }
 }

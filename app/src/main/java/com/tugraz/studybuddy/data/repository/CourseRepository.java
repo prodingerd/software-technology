@@ -44,6 +44,7 @@ public class CourseRepository implements ICourseRepository<CourseModel> {
 
     @Override
     public void update(CourseModel entity) {
+        courses.set(Integer.parseInt(entity.getId()), entity);
     }
 
     @Override
