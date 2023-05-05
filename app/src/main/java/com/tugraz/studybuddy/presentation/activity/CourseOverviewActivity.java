@@ -3,7 +3,6 @@ package com.tugraz.studybuddy.presentation.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -12,9 +11,6 @@ import android.widget.Toast;
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -38,22 +34,19 @@ public class CourseOverviewActivity extends AppCompatActivity {
         editTextCourseName.setText(course.getName());
         editTextCourseDescription.setText(course.getDescription());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-        editTextExamDate.setText(formatter.format(course.getExamDate().getTime()));
+        editTextExamDate.setText(course.getExamDate().toString());
 
-
-        findViewById(R.id.editTextExamDate).setOnClickListener(view -> {
-            final Calendar cldr = Calendar.getInstance();
-            int day = cldr.get(Calendar.DAY_OF_MONTH);
-            int month = cldr.get(Calendar.MONTH);
-            int year = cldr.get(Calendar.YEAR);
-
-
-            DatePickerDialog picker = new DatePickerDialog(CourseOverviewActivity.this,
-                    (view1, year1, monthOfYear, dayOfMonth) -> editTextExamDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1),
-                    year, month, day);
-            picker.show();
-        });
+//        findViewById(R.id.editTextExamDate).setOnClickListener(view -> {
+//            final Calendar cldr = Calendar.getInstance();
+//            int day = cldr.get(Calendar.DAY_OF_MONTH);
+//            int month = cldr.get(Calendar.MONTH);
+//            int year = cldr.get(Calendar.YEAR);
+//
+//            DatePickerDialog picker = new DatePickerDialog(CourseOverviewActivity.this,
+//                    (view1, year1, monthOfYear, dayOfMonth) -> editTextExamDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1),
+//                    year, month, day);
+//            picker.show();
+//        });
 
         findViewById(R.id.buttonGoBack).setOnClickListener(v -> startActivity(new Intent(this, OverviewActivity.class)));
 
@@ -65,7 +58,7 @@ public class CourseOverviewActivity extends AppCompatActivity {
             if (!validInput(courseName, courseDescription, examDate)) {
                 return;
             }
-            if (courseViewModel.updateCourse(course.getId(),courseName, courseDescription, examDate)) {
+            if (courseViewModel.updateCourse(course.getId(), courseName, courseDescription, examDate)) {
                 startActivity(new Intent(this, OverviewActivity.class));
             } else {
                 Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();

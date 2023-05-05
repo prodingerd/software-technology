@@ -12,14 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class AddCourseActivity extends AppCompatActivity {
-
-    //private CourseViewModel courseViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,15 +30,14 @@ public class AddCourseActivity extends AppCompatActivity {
         EditText editTextExamDate = findViewById(R.id.editTextExamDate);
 
         findViewById(R.id.editTextExamDate).setOnClickListener(view -> {
-            final Calendar cldr = Calendar.getInstance();
-            int day = cldr.get(Calendar.DAY_OF_MONTH);
-            int month = cldr.get(Calendar.MONTH);
-            int year = cldr.get(Calendar.YEAR);
-
+            LocalDate date = LocalDate.now();
 
             DatePickerDialog picker = new DatePickerDialog(AddCourseActivity.this,
-                    (view1, year1, monthOfYear, dayOfMonth) -> editTextExamDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1),
-                    year, month, day);
+                    (dialog, year, month, day) -> {
+                        LocalDate examDate = LocalDate.of(year, month + 1, day);
+                        editTextExamDate.setText(examDate.toString());
+                    },
+                    date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
             picker.show();
         });
 
