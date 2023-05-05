@@ -5,6 +5,7 @@ import com.tugraz.studybuddy.data.model.CourseModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 
@@ -44,7 +45,14 @@ public class CourseRepository implements ICourseRepository<CourseModel> {
 
     @Override
     public void update(CourseModel entity) {
-        courses.set(Integer.parseInt(entity.getId()), entity);
+
+        int pos = IntStream.range(0,courses.size())
+                .filter(x -> courses.get(x).getId().equals(entity.getId()))
+                .findFirst().getAsInt();
+
+        if(pos != -1) {
+            courses.set(pos, entity);
+        }
     }
 
     @Override
