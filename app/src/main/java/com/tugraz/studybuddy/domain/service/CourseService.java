@@ -28,7 +28,9 @@ public class CourseService {
 
     public boolean createCourse(String name, String description, String examDate) {
         try {
-            // TODO Validation.
+            if(name.isEmpty() || description.isEmpty() || examDate.isEmpty()) {
+                return false;
+            }
 
             // TODO Fix the simple date format.
             Date parsedExamDate = new SimpleDateFormat("dd/MM/yyyy").parse(examDate);
@@ -43,7 +45,10 @@ public class CourseService {
 
     public boolean updateCourse(String id, String name, String description, String examDate) {
         try {
-            // TODO Validation.
+            if(id.isEmpty() || name.isEmpty() || description.isEmpty() || examDate.isEmpty()) {
+                return false;
+            }
+
             // TODO Fix the simple date format.
             Date parsedExamDate = new SimpleDateFormat("dd/MM/yyyy").parse(examDate);
             CourseModel toUpdate = courseRepository.getById(id);
