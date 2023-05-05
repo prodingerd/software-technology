@@ -27,5 +27,8 @@
     <string name="exam_date">Exam Date</string>
     <string name="all_input_fields">All input fields have to be filled</string>
 
+    <!-- CourseOverviewActivity -->
+    <string name="save_course">Save Course</string>
+
 
 </resources>

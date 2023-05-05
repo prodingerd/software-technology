@@ -27,4 +27,8 @@ public class CourseViewModel extends ViewModel {
     public boolean createCourse(String courseName, String courseDescription, String examDate) {
         return courseService.createCourse(courseName, courseDescription, examDate);
     }
+
+    public boolean updateCourse(String id, String courseName, String courseDescription, String examDate) {
+        return courseService.updateCourse(id, courseName, courseDescription, examDate);
+    }
 }

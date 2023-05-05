@@ -41,6 +41,8 @@ public class OverviewActivity extends AppCompatActivity implements CourseAdapter
 
     @Override
     public void onItemClick(CourseModel course) {
-        Toast.makeText(getApplicationContext(), "Clicked course " + course.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, CourseOverviewActivity.class);
+        intent.putExtra("course", course);
+        startActivity(intent);
     }
 }
