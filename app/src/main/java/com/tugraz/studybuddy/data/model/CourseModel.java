@@ -1,17 +1,17 @@
 package com.tugraz.studybuddy.data.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class CourseModel extends BaseModel {
     private String name;
     private String description;
     private String userId;
-    private Date examDate;
+    private LocalDate examDate;
 
     public CourseModel() {}
 
-    public CourseModel(String name, String description, Date examDate) {
+    public CourseModel(String name, String description, LocalDate examDate) {
         this.name = name;
         this.description = description;
         this.examDate = examDate;
@@ -43,11 +43,11 @@ public class CourseModel extends BaseModel {
         this.description = description;
     }
 
-    public Date getExamDate() {
+    public LocalDate getExamDate() {
         return examDate;
     }
 
-    public void setExamDate(Date examDate) {
+    public void setExamDate(LocalDate examDate) {
         this.examDate = examDate;
     }
 }

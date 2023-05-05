@@ -1,13 +1,10 @@
 package com.tugraz.studybuddy.domain.service;
 
-import android.util.Log;
 
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.data.repository.CourseRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,39 +24,27 @@ public class CourseService {
     }
 
     public boolean createCourse(String name, String description, String examDate) {
-        try {
-            if(name.isEmpty() || description.isEmpty() || examDate.isEmpty()) {
-                return false;
-            }
-
-            // TODO Fix the simple date format.
-            Date parsedExamDate = new SimpleDateFormat("dd/MM/yyyy").parse(examDate);
-            courseRepository.add(new CourseModel(name, description, parsedExamDate));
-        } catch (ParseException exception) {
-            Log.e(TAG, "Parsing date failed");
+        if (name.isEmpty() || description.isEmpty() || examDate.isEmpty()) {
             return false;
         }
+
+        LocalDate parsedExamDate = LocalDate.parse(examDate);
+        courseRepository.add(new CourseModel(name, description, parsedExamDate));
 
         return true;
     }
 
     public boolean updateCourse(String id, String name, String description, String examDate) {
-        try {
-            if(id.isEmpty() || name.isEmpty() || description.isEmpty() || examDate.isEmpty()) {
-                return false;
-            }
-
-            // TODO Fix the simple date format.
-            Date parsedExamDate = new SimpleDateFormat("dd/MM/yyyy").parse(examDate);
-            CourseModel toUpdate = courseRepository.getById(id);
-            toUpdate.setName(name);
-            toUpdate.setDescription(description);
-            toUpdate.setExamDate(parsedExamDate);
-            courseRepository.update(toUpdate);
-        } catch (ParseException exception) {
-            Log.e(TAG, "Parsing date failed");
+        if (id.isEmpty() || name.isEmpty() || description.isEmpty() || examDate.isEmpty()) {
             return false;
         }
+
+        LocalDate parsedExamDate = LocalDate.parse(examDate);
+        CourseModel toUpdate = courseRepository.getById(id);
+        toUpdate.setName(name);
+        toUpdate.setDescription(description);
+        toUpdate.setExamDate(parsedExamDate);
+        courseRepository.update(toUpdate);
 
         return true;
     }

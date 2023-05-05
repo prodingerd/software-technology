@@ -2,8 +2,8 @@ package com.tugraz.studybuddy.data.repository;
 
 import com.tugraz.studybuddy.data.model.CourseModel;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -19,9 +19,9 @@ public class CourseRepository implements ICourseRepository<CourseModel> {
     public CourseRepository() {
         if (courses.isEmpty()) {
             courses.addAll(List.of(
-                    new CourseModel("Software Technology", "Summer 2023", new Date()),
-                    new CourseModel("Android Development", "Summer 2023", new Date()),
-                    new CourseModel("Analysis T 10000000", "Summer 2023", new Date())
+                    new CourseModel("Software Technology", "Summer 2023", LocalDate.now()),
+                    new CourseModel("Android Development", "Summer 2023", LocalDate.now()),
+                    new CourseModel("Analysis T 10000000", "Summer 2023", LocalDate.now())
             ));
         }
     }
