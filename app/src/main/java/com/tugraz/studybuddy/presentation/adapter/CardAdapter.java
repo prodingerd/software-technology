@@ -26,10 +26,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             textViewFrontText = itemView.findViewById(R.id.textViewFrontText);
             textViewBackText = itemView.findViewById(R.id.textViewBackText);
         }
-        public void bind(CardModel card, CardAdapter.OnClickListener onClickListener) {
-            textViewFrontText.setText("testing");
-            textViewBackText.setText("tests");
-            itemView.setOnClickListener(v -> onClickListener.onItemClick(card));
+        public void bind(CardModel card) {
+            textViewFrontText.setText(card.getFrontText());
+            textViewBackText.setText(card.getBackText());
+            //itemView.setOnClickListener(v -> onClickListener.onItemClick(card));
         }
     }
 
@@ -53,7 +53,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //holder.bind(cards.get(position), onClickListener);
+        holder.bind(cards.get(position));
     }
 
     @Override
