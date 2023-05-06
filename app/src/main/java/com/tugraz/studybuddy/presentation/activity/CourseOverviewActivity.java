@@ -2,15 +2,24 @@ package com.tugraz.studybuddy.presentation.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tugraz.studybuddy.R;
+import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
+import com.tugraz.studybuddy.presentation.adapter.CardAdapter;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -36,17 +45,17 @@ public class CourseOverviewActivity extends AppCompatActivity {
 
         editTextExamDate.setText(course.getExamDate().toString());
 
-//        findViewById(R.id.editTextExamDate).setOnClickListener(view -> {
-//            final Calendar cldr = Calendar.getInstance();
-//            int day = cldr.get(Calendar.DAY_OF_MONTH);
-//            int month = cldr.get(Calendar.MONTH);
-//            int year = cldr.get(Calendar.YEAR);
-//
-//            DatePickerDialog picker = new DatePickerDialog(CourseOverviewActivity.this,
-//                    (view1, year1, monthOfYear, dayOfMonth) -> editTextExamDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1),
-//                    year, month, day);
-//            picker.show();
-//        });
+        findViewById(R.id.editTextExamDate).setOnClickListener(view -> {
+            LocalDate date = LocalDate.now();
+
+            DatePickerDialog picker = new DatePickerDialog(CourseOverviewActivity.this,
+                    (dialog, year, month, day) -> {
+                        LocalDate examDate = LocalDate.of(year, month + 1, day);
+                        editTextExamDate.setText(examDate.toString());
+                    },
+                    date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
+            picker.show();
+        });
 
         findViewById(R.id.buttonGoBack).setOnClickListener(v -> startActivity(new Intent(this, OverviewActivity.class)));
 
@@ -64,6 +73,18 @@ public class CourseOverviewActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        ArrayList<CardModel> dummy_cards = new ArrayList<CardModel>();
+        for (int i = 0; i <= 5; i++) {
+            dummy_cards.add(new CardModel("Front " + i, "Back" + 1));
+        }
+
+        RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
+        CardAdapter adapter = new CardAdapter(dummy_cards);
+
+        cardRecycler.setAdapter(adapter);
+        cardRecycler.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private boolean validInput(String examDate, String examDescription, String date) {
