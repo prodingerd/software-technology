@@ -5,12 +5,14 @@ import com.tugraz.studybuddy.data.model.CardModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class CardRepository implements ICardRepository<CardModel> {
     private static final String CARD_COLLECTION = "cards";
     private static final String TAG = "CardRepository";
 
     private static final List<CardModel> cards = new ArrayList<>();
-
+    @Inject
     public CardRepository() {
         if (cards.isEmpty()) {
             cards.addAll(List.of(
