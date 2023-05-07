@@ -15,16 +15,15 @@ import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.presentation.adapter.CardAdapter;
+import com.tugraz.studybuddy.presentation.viewmodel.CardViewModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CourseOverviewActivity extends AppCompatActivity {
+public class CourseOverviewActivity extends AppCompatActivity implements CardAdapter.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,13 @@ public class CourseOverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_overview);
 
         CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+        CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+
+        RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
+        CardAdapter cardAdapter = new CardAdapter(cardViewModel.getAllCourses(), this);
+
+        cardRecycler.setAdapter(cardAdapter);
+        cardRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         Bundle extras = getIntent().getExtras();
         CourseModel course = (CourseModel) extras.get("course");
@@ -70,20 +76,9 @@ public class CourseOverviewActivity extends AppCompatActivity {
             if (courseViewModel.updateCourse(course.getId(), courseName, courseDescription, examDate)) {
                 startActivity(new Intent(this, OverviewActivity.class));
             } else {
-                Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Updating course failed!", Toast.LENGTH_SHORT).show();
             }
         });
-
-        ArrayList<CardModel> dummy_cards = new ArrayList<CardModel>();
-        for (int i = 0; i <= 5; i++) {
-            dummy_cards.add(new CardModel("Front " + i, "Back" + 1));
-        }
-
-        RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
-        CardAdapter adapter = new CardAdapter(dummy_cards);
-
-        cardRecycler.setAdapter(adapter);
-        cardRecycler.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -93,5 +88,10 @@ public class CourseOverviewActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onItemClick(CardModel card) {
+        //TODO Edit clicked Card
     }
 }
