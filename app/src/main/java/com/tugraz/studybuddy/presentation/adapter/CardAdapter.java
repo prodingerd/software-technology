@@ -26,19 +26,20 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             textViewFrontText = itemView.findViewById(R.id.textViewFrontText);
             textViewBackText = itemView.findViewById(R.id.textViewBackText);
         }
-        public void bind(CardModel card) {
+        public void bind(CardModel card, OnClickListener onClickListener) {
             textViewFrontText.setText(card.getFrontText());
             textViewBackText.setText(card.getBackText());
-            //itemView.setOnClickListener(v -> onClickListener.onItemClick(card));
+            itemView.setOnClickListener(v -> onClickListener.onItemClick(card));
         }
     }
 
     private final List<CardModel> cards;
-    //private final CardAdapter.OnClickListener onClickListener;
 
-    public CardAdapter(List<CardModel> cards) {
+    private final OnClickListener onClickListener;
+
+    public CardAdapter(List<CardModel> cards, OnClickListener onClickListener) {
         this.cards = cards;
-        //this.onClickListener = onClickListener;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -52,8 +53,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(cards.get(position));
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.bind(cards.get(position), onClickListener);
     }
 
     @Override
