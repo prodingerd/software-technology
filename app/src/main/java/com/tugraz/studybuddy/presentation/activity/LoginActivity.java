@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.tugraz.studybuddy.R;
 
 public class LoginActivity extends AppCompatActivity {
-
     private static final String TAG = "LoginActivity";
     private static final int MIN_PASSWORD_LENGTH = 8;
 

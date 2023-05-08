@@ -1,19 +1,20 @@
 package com.tugraz.studybuddy.presentation.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
+import com.tugraz.studybuddy.domain.exception.NotImplementedError;
 import com.tugraz.studybuddy.presentation.adapter.CardAdapter;
 import com.tugraz.studybuddy.presentation.viewmodel.CardViewModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
@@ -23,8 +24,7 @@ import java.time.LocalDate;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CourseOverviewActivity extends AppCompatActivity implements CardAdapter.OnClickListener{
-
+public class CourseOverviewActivity extends AppCompatActivity implements CardAdapter.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +48,9 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
 
         editTextCourseName.setText(course.getName());
         editTextCourseDescription.setText(course.getDescription());
-
         editTextExamDate.setText(course.getExamDate().toString());
 
-        findViewById(R.id.editTextExamDate).setOnClickListener(view -> {
+        findViewById(R.id.editTextExamDate).setOnClickListener(v -> {
             LocalDate date = LocalDate.now();
 
             DatePickerDialog picker = new DatePickerDialog(CourseOverviewActivity.this,
@@ -82,16 +81,16 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
 
     }
 
+    @Override
+    public void onItemClick(CardModel card) {
+        throw new NotImplementedError();
+    }
+
     private boolean validInput(String examDate, String examDescription, String date) {
         if (examDate.isEmpty() || examDescription.isEmpty() || date.isEmpty()) {
             Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void onItemClick(CardModel card) {
-        //TODO Edit clicked Card
     }
 }
