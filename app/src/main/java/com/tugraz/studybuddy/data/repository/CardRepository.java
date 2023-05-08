@@ -4,6 +4,7 @@ import com.tugraz.studybuddy.data.model.CardModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 
@@ -34,7 +35,7 @@ public class CardRepository implements ICardRepository<CardModel> {
     public CardModel getById(String id) {
         return cards.stream()
                 .filter(x -> x.getId().equals(id))
-                .findFirst().orElseGet(null);
+                .findFirst().orElse(null);
     }
 
     @Override
@@ -44,9 +45,13 @@ public class CardRepository implements ICardRepository<CardModel> {
 
     @Override
     public void update(CardModel entity) {
+        IntStream.range(0, cards.size())
+                .filter(x -> cards.get(x).getId().equals(entity.getId()))
+                .findFirst().ifPresent(i -> cards.set(i, entity));
     }
 
     @Override
     public void delete(CardModel entity) {
+        throw new UnsupportedOperationException();
     }
 }

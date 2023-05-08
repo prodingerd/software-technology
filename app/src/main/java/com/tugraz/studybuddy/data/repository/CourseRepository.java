@@ -35,7 +35,7 @@ public class CourseRepository implements ICourseRepository<CourseModel> {
     public CourseModel getById(String id) {
         return courses.stream()
                 .filter(x -> x.getId().equals(id))
-                .findFirst().orElseGet(null);
+                .findFirst().orElse(null);
     }
 
     @Override
@@ -45,17 +45,13 @@ public class CourseRepository implements ICourseRepository<CourseModel> {
 
     @Override
     public void update(CourseModel entity) {
-
-        int pos = IntStream.range(0, courses.size())
+        IntStream.range(0, courses.size())
                 .filter(x -> courses.get(x).getId().equals(entity.getId()))
-                .findFirst().getAsInt();
-
-        if (pos != -1) {
-            courses.set(pos, entity);
-        }
+                .findFirst().ifPresent(i -> courses.set(i, entity));
     }
 
     @Override
     public void delete(CourseModel entity) {
+        throw new UnsupportedOperationException();
     }
 }
