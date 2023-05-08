@@ -10,8 +10,8 @@ import java.util.stream.IntStream;
 import javax.inject.Inject;
 
 public class CourseRepository implements ICourseRepository<CourseModel> {
-    private static final String COURSE_COLLECTION = "courses";
     private static final String TAG = "CourseRepository";
+    private static final String COURSE_COLLECTION = "courses";
 
     private static final List<CourseModel> courses = new ArrayList<>();
 
@@ -46,11 +46,11 @@ public class CourseRepository implements ICourseRepository<CourseModel> {
     @Override
     public void update(CourseModel entity) {
 
-        int pos = IntStream.range(0,courses.size())
+        int pos = IntStream.range(0, courses.size())
                 .filter(x -> courses.get(x).getId().equals(entity.getId()))
                 .findFirst().getAsInt();
 
-        if(pos != -1) {
+        if (pos != -1) {
             courses.set(pos, entity);
         }
     }

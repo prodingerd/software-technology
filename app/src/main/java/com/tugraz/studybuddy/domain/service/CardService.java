@@ -1,6 +1,5 @@
 package com.tugraz.studybuddy.domain.service;
 
-
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.repository.CardRepository;
 
@@ -21,5 +20,4 @@ public class CardService {
     public List<CardModel> getAllCards() {
         return cardRepository.getAll();
     }
-
 }
