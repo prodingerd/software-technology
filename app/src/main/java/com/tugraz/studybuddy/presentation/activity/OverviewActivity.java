@@ -2,7 +2,6 @@ package com.tugraz.studybuddy.presentation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,12 +30,7 @@ public class OverviewActivity extends AppCompatActivity implements CourseAdapter
         courseRecycler.setAdapter(adapter);
         courseRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        findViewById(R.id.button_add_course).setOnClickListener(v -> {
-            Toast toast = Toast.makeText(getApplicationContext(), "Clicked add course", Toast.LENGTH_SHORT);
-            toast.show();
-
-            startActivity(new Intent(this, AddCourseActivity.class));
-        });
+        findViewById(R.id.button_add_course).setOnClickListener(v -> startActivity(new Intent(this, AddCourseActivity.class)));
     }
 
     @Override

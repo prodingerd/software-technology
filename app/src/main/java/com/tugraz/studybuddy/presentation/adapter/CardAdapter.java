@@ -26,6 +26,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             textViewFrontText = itemView.findViewById(R.id.textViewFrontText);
             textViewBackText = itemView.findViewById(R.id.textViewBackText);
         }
+
         public void bind(CardModel card, OnClickListener onClickListener) {
             textViewFrontText.setText(card.getFrontText());
             textViewBackText.setText(card.getBackText());
@@ -34,7 +35,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     }
 
     private final List<CardModel> cards;
-
     private final OnClickListener onClickListener;
 
     public CardAdapter(List<CardModel> cards, OnClickListener onClickListener) {
@@ -44,7 +44,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public CardAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -59,7 +59,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return cards.size();
     }
 
     public interface OnClickListener {
