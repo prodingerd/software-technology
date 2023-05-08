@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
-import com.tugraz.studybuddy.domain.exception.NotImplementedError;
 import com.tugraz.studybuddy.presentation.adapter.CardAdapter;
 import com.tugraz.studybuddy.presentation.viewmodel.CardViewModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
