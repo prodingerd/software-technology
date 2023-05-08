@@ -82,7 +82,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
 
     @Override
     public void onItemClick(CardModel card) {
-        throw new NotImplementedError();
+        throw new UnsupportedOperationException();
     }
 
     private boolean validInput(String examDate, String examDescription, String date) {
