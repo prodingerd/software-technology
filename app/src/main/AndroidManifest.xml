@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudyBuddy">
         <activity
+            android:name=".presentation.activity.PlayCourseActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.activity.CourseOverviewActivity"
             android:exported="false" />
         <activity
