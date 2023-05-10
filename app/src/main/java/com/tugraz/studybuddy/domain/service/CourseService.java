@@ -1,8 +1,12 @@
 package com.tugraz.studybuddy.domain.service;
 
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.data.repository.CourseRepository;
+import com.tugraz.studybuddy.presentation.activity.OverviewActivity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,6 +50,11 @@ public class CourseService {
         toUpdate.setExamDate(parsedExamDate);
         courseRepository.update(toUpdate);
 
+        return true;
+    }
+
+    public boolean deleteCourse(CourseModel course){
+        courseRepository.delete(course);
         return true;
     }
 }

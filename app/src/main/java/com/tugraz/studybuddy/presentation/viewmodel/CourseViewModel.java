@@ -31,4 +31,8 @@ public class CourseViewModel extends ViewModel {
     public boolean updateCourse(String id, String courseName, String courseDescription, String examDate) {
         return courseService.updateCourse(id, courseName, courseDescription, examDate);
     }
+
+    public boolean deleteCourse(CourseModel course){
+        return courseService.deleteCourse(course);
+    }
 }

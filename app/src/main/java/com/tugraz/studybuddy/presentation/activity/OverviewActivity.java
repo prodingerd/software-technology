@@ -39,4 +39,11 @@ public class OverviewActivity extends AppCompatActivity implements CourseAdapter
         intent.putExtra("course", course);
         startActivity(intent);
     }
+
+    public boolean longOnItemClick(CourseModel course) {
+        CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+        courseViewModel.deleteCourse(course);
+        startActivity(new Intent(this, OverviewActivity.class));
+        return true;
+    }
 }
