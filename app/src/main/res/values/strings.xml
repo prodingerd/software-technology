@@ -14,10 +14,12 @@
     <string name="password_too_short">Your password must be 8 characters long</string>
     <string name="invalid_credentials">Enter a valid email and password</string>
 
-    <!-- StudyOverviewActivity -->
+    <!-- OverviewActivity -->
     <string name="title_activity_study_overview">StudyOverview</string>
     <string name="edit_course">Edit</string>
     <string name="play_course">Play</string>
+    <string name="delete_title">Delete entry</string>
+    <string name="delete_message">Are you sure you want to delete this entry?</string>
 
     <!-- AddCourseActivity -->
     <string name="course_name">Course Name</string>
@@ -29,6 +31,5 @@
 
     <!-- CourseOverviewActivity -->
     <string name="save_course">Save Course</string>
-
 
 </resources>
