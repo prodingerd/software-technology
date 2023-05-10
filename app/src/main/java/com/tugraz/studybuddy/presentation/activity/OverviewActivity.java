@@ -1,5 +1,8 @@
 package com.tugraz.studybuddy.presentation.activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -42,8 +45,14 @@ public class OverviewActivity extends AppCompatActivity implements CourseAdapter
 
     public boolean longOnItemClick(CourseModel course) {
         CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        courseViewModel.deleteCourse(course);
-        startActivity(new Intent(this, OverviewActivity.class));
+        Context context = this;
+        new AlertDialog.Builder(this).setTitle(R.string.delete_title).setMessage(R.string.delete_message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        courseViewModel.deleteCourse(course);
+                        startActivity(new Intent(context, OverviewActivity.class));
+                    }
+                }).setNegativeButton(android.R.string.cancel, null).show();
         return true;
     }
 }
