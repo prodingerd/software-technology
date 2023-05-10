@@ -20,7 +20,7 @@ public class CardViewModel extends ViewModel {
         this.cardService = cardService;
     }
 
-    public List<CardModel> getAllCourses() {
+    public List<CardModel> getAllCards() {
         return cardService.getAllCards();
     }
 }

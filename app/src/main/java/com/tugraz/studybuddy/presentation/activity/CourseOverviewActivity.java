@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,13 +35,14 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
         CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
 
         RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
-        CardAdapter cardAdapter = new CardAdapter(cardViewModel.getAllCourses(), this);
+        CardAdapter cardAdapter = new CardAdapter(cardViewModel.getAllCards(), this);
 
         cardRecycler.setAdapter(cardAdapter);
         cardRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         Bundle extras = getIntent().getExtras();
         CourseModel course = (CourseModel) extras.get("course");
+        CardModel cards = (CardModel) cardViewModel.getAllCards();
 
         EditText editTextCourseName = findViewById(R.id.editTextCourseName);
         EditText editTextCourseDescription = findViewById(R.id.editTextCourseDescription);
@@ -72,8 +72,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
                     editTextCourseDescription.setEnabled(true);
                     editTextExamDate.setEnabled(true);
                     findViewById(R.id.buttonSaveCourse).setEnabled(true);
-                }
-                else {
+                } else {
                     editTextCourseName.setEnabled(false);
                     editTextCourseDescription.setEnabled(false);
                     editTextExamDate.setEnabled(false);
@@ -82,6 +81,9 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
             }
         });
 
+        findViewById(R.id.buttonPlayCourse).setOnClickListener(v ->
+                startActivity(new Intent(this, PlayCourseActivity.class).putExtra("cards", cards))
+        );
 
         findViewById(R.id.buttonSaveCourse).setOnClickListener(v -> {
             String courseName = editTextCourseName.getText().toString();
@@ -97,7 +99,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
                 Toast.makeText(getApplicationContext(), "Updating course failed!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override
