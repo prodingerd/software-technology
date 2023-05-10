@@ -3,11 +3,14 @@ package com.tugraz.studybuddy.presentation.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,7 +64,24 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
             picker.show();
         });
 
-        findViewById(R.id.buttonGoBack).setOnClickListener(v -> startActivity(new Intent(this, OverviewActivity.class)));
+        Switch simpleSwitch = findViewById(R.id.switchToggleEditCourseDetails);
+        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    editTextCourseName.setEnabled(true);
+                    editTextCourseDescription.setEnabled(true);
+                    editTextExamDate.setEnabled(true);
+                    findViewById(R.id.buttonSaveCourse).setEnabled(true);
+                }
+                else {
+                    editTextCourseName.setEnabled(false);
+                    editTextCourseDescription.setEnabled(false);
+                    editTextExamDate.setEnabled(false);
+                    findViewById(R.id.buttonSaveCourse).setEnabled(false);
+                }
+            }
+        });
+
 
         findViewById(R.id.buttonSaveCourse).setOnClickListener(v -> {
             String courseName = editTextCourseName.getText().toString();
