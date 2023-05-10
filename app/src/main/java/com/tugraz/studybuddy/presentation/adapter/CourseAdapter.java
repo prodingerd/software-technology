@@ -30,6 +30,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             textViewCourseName.setText(course.getName());
             textViewCourseDescription.setText(course.getDescription());
             itemView.setOnClickListener(v -> onClickListener.onItemClick(course));
+            itemView.setOnLongClickListener(v -> onClickListener.longOnItemClick(course));
         }
     }
 
@@ -63,5 +64,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public interface OnClickListener {
         void onItemClick(CourseModel course);
+        boolean longOnItemClick(CourseModel course);
     }
+
 }

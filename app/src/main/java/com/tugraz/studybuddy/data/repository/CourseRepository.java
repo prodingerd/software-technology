@@ -52,6 +52,6 @@ public class CourseRepository implements ICourseRepository<CourseModel> {
 
     @Override
     public void delete(CourseModel entity) {
-        throw new UnsupportedOperationException();
+        courses.remove(entity);
     }
 }
