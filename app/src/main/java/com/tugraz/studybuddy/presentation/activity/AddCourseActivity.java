@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class AddCourseActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +42,7 @@ public class AddCourseActivity extends AppCompatActivity {
             picker.show();
         });
 
-        findViewById(R.id.buttonGoBack).setOnClickListener(v -> {
-            startActivity(new Intent(this, OverviewActivity.class));
-        });
+        findViewById(R.id.buttonGoBack).setOnClickListener(v -> startActivity(new Intent(this, OverviewActivity.class)));
 
         findViewById(R.id.buttonAddCourse).setOnClickListener(v -> {
             String courseName = editTextCourseName.getText().toString();

@@ -17,8 +17,8 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewFrontText;
-        public TextView textViewBackText;
+        private final TextView textViewFrontText;
+        private final TextView textViewBackText;
 
         public ViewHolder(View itemView) {
             super(itemView);

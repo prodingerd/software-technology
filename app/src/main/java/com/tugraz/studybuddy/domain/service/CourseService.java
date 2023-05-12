@@ -9,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class CourseService {
-    private static final String TAG = "CourseService";
 
     private final CourseRepository courseRepository;
 

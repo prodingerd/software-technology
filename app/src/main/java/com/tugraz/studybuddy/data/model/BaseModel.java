@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public abstract class BaseModel implements Serializable {
+
     //    @DocumentId
     private String id;
     //    @ServerTimestamp

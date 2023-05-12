@@ -3,7 +3,6 @@ package com.tugraz.studybuddy.presentation.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -26,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CourseOverviewActivity extends AppCompatActivity implements CardAdapter.OnClickListener {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,19 +64,18 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
         });
 
         Switch simpleSwitch = findViewById(R.id.switchToggleEditCourseDetails);
-        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    editTextCourseName.setEnabled(true);
-                    editTextCourseDescription.setEnabled(true);
-                    editTextExamDate.setEnabled(true);
-                    findViewById(R.id.buttonSaveCourse).setEnabled(true);
-                } else {
-                    editTextCourseName.setEnabled(false);
-                    editTextCourseDescription.setEnabled(false);
-                    editTextExamDate.setEnabled(false);
-                    findViewById(R.id.buttonSaveCourse).setEnabled(false);
-                }
+
+        simpleSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                editTextCourseName.setEnabled(true);
+                editTextCourseDescription.setEnabled(true);
+                editTextExamDate.setEnabled(true);
+                findViewById(R.id.buttonSaveCourse).setEnabled(true);
+            } else {
+                editTextCourseName.setEnabled(false);
+                editTextCourseDescription.setEnabled(false);
+                editTextExamDate.setEnabled(false);
+                findViewById(R.id.buttonSaveCourse).setEnabled(false);
             }
         });
 
@@ -92,6 +91,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
             if (!validInput(courseName, courseDescription, examDate)) {
                 return;
             }
+
             if (courseViewModel.updateCourse(course.getId(), courseName, courseDescription, examDate)) {
                 startActivity(new Intent(this, OverviewActivity.class));
             } else {

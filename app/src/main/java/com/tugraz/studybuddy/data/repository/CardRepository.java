@@ -9,8 +9,6 @@ import java.util.stream.IntStream;
 import javax.inject.Inject;
 
 public class CardRepository implements ICardRepository<CardModel> {
-    private static final String TAG = "CardRepository";
-    private static final String CARD_COLLECTION = "cards";
 
     private static final List<CardModel> cards = new ArrayList<>();
 

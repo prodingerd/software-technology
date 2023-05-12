@@ -17,8 +17,8 @@ import java.util.List;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewCourseName;
-        public TextView textViewCourseDescription;
+        private final TextView textViewCourseName;
+        private final TextView textViewCourseDescription;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -26,6 +26,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             textViewCourseName = itemView.findViewById(R.id.course_name);
             textViewCourseDescription = itemView.findViewById(R.id.course_description);
         }
+
         public void bind(CourseModel course, OnClickListener onClickListener) {
             textViewCourseName.setText(course.getName());
             textViewCourseDescription.setText(course.getDescription());
@@ -64,7 +65,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public interface OnClickListener {
         void onItemClick(CourseModel course);
+
         boolean longOnItemClick(CourseModel course);
     }
-
 }
