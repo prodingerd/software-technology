@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class CourseViewModel extends ViewModel {
+
     private final CourseService courseService;
 
     @Inject
@@ -32,7 +33,7 @@ public class CourseViewModel extends ViewModel {
         return courseService.updateCourse(id, courseName, courseDescription, examDate);
     }
 
-    public boolean deleteCourse(CourseModel course){
+    public boolean deleteCourse(CourseModel course) {
         return courseService.deleteCourse(course);
     }
 }

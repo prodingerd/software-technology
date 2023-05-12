@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class CardViewModel extends ViewModel {
+
     private final CardService cardService;
 
     @Inject
