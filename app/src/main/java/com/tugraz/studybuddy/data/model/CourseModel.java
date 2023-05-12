@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class CourseModel extends BaseModel {
+
     private String name;
     private String description;
     private String userId;

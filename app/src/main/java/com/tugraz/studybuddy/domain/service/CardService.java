@@ -8,7 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class CardService {
-    private static final String TAG = "CardService";
 
     private final CardRepository cardRepository;
 

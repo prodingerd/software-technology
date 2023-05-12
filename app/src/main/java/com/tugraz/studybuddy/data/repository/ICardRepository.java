@@ -1,4 +1,3 @@
 package com.tugraz.studybuddy.data.repository;
 
-public interface ICardRepository<T> extends IGenericRepository<T> {
-}
+public interface ICardRepository<T> extends IGenericRepository<T> {}

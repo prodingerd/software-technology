@@ -3,6 +3,7 @@ package com.tugraz.studybuddy.data.model;
 import java.util.UUID;
 
 public class CardModel extends BaseModel {
+
     private String frontText;
     private String backText;
 
