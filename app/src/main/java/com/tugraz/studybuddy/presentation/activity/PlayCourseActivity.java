@@ -44,7 +44,7 @@ public class PlayCourseActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.button_next_card).setOnClickListener(v -> {
+        findViewById(R.id.buttonNextCard).setOnClickListener(v -> {
             CardModel nextCard = playCourseViewModel.nextCard();
             frontCardText.setText(nextCard.getFrontText());
             backCardText.setText(nextCard.getBackText());
