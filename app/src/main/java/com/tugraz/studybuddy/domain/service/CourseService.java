@@ -1,12 +1,7 @@
 package com.tugraz.studybuddy.domain.service;
 
-
-import android.util.Log;
-import android.widget.Toast;
-
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.data.repository.CourseRepository;
-import com.tugraz.studybuddy.presentation.activity.OverviewActivity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,6 +20,10 @@ public class CourseService {
 
     public List<CourseModel> getAllCourses() {
         return courseRepository.getAll();
+    }
+
+    public CourseModel getCourseById(String id) {
+        return courseRepository.getById(id);
     }
 
     public boolean createCourse(String name, String description, String examDate) {
@@ -53,7 +52,7 @@ public class CourseService {
         return true;
     }
 
-    public boolean deleteCourse(CourseModel course){
+    public boolean deleteCourse(CourseModel course) {
         courseRepository.delete(course);
         return true;
     }

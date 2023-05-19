@@ -42,7 +42,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
 
         Bundle extras = getIntent().getExtras();
         CourseModel course = (CourseModel) extras.get("course");
-        CardModel cards = (CardModel) cardViewModel.getAllCards();
 
         EditText editTextCourseName = findViewById(R.id.editTextCourseName);
         EditText editTextCourseDescription = findViewById(R.id.editTextCourseDescription);
@@ -82,7 +81,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
         });
 
         findViewById(R.id.buttonPlayCourse).setOnClickListener(v ->
-                startActivity(new Intent(this, PlayCourseActivity.class).putExtra("cards", cards))
+                startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course))
         );
 
         findViewById(R.id.buttonSaveCourse).setOnClickListener(v -> {
