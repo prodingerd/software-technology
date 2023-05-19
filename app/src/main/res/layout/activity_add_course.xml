@@ -15,7 +15,8 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/imageViewLogin"
@@ -31,7 +32,6 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textSize="30sp" />
-
     </LinearLayout>
 
     <EditText
@@ -77,11 +77,11 @@
         android:layout_marginEnd="24dp"
         android:autofillHints="password"
         android:ems="10"
+        android:focusable="false"
         android:hint="@string/exam_date"
         android:inputType="date"
         android:maxWidth="488dp"
         android:minHeight="48dp"
-        android:focusable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextCourseDescription" />

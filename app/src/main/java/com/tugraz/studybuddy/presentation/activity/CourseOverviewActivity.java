@@ -1,5 +1,6 @@
 package com.tugraz.studybuddy.presentation.activity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,6 +64,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
             picker.show();
         });
 
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch simpleSwitch = findViewById(R.id.switchToggleEditCourseDetails);
 
         simpleSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
