@@ -24,4 +24,8 @@ public class CardViewModel extends ViewModel {
     public List<CardModel> getAllCards() {
         return cardService.getAllCards();
     }
+
+    public boolean deleteCard(CardModel card) {
+        return cardService.deleteCard(card);
+    }
 }

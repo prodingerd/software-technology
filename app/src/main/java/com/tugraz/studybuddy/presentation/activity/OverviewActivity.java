@@ -47,7 +47,7 @@ public class OverviewActivity extends AppCompatActivity implements CourseAdapter
     public boolean longOnItemClick(CourseModel course) {
         CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
         Context context = this;
-        new AlertDialog.Builder(this).setTitle(R.string.delete_title).setMessage(R.string.delete_message)
+        new AlertDialog.Builder(this).setTitle(R.string.delete_title).setMessage(R.string.delete_message_course)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     courseViewModel.deleteCourse(course);
                     startActivity(new Intent(context, OverviewActivity.class));

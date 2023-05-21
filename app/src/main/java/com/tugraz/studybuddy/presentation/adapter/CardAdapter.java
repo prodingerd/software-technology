@@ -31,6 +31,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             textViewFrontText.setText(card.getFrontText());
             textViewBackText.setText(card.getBackText());
             itemView.setOnClickListener(v -> onClickListener.onItemClick(card));
+            itemView.setOnLongClickListener(v -> onClickListener.longOnItemClick(card));
         }
     }
 
@@ -64,5 +65,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     public interface OnClickListener {
         void onItemClick(CardModel card);
+        boolean longOnItemClick(CardModel card);
     }
 }
