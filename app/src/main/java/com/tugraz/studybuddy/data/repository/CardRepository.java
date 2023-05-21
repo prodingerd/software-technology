@@ -50,6 +50,6 @@ public class CardRepository implements ICardRepository<CardModel> {
 
     @Override
     public void delete(CardModel entity) {
-        throw new UnsupportedOperationException();
+        cards.remove(entity);
     }
 }

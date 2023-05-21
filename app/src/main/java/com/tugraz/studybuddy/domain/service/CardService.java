@@ -19,4 +19,9 @@ public class CardService {
     public List<CardModel> getAllCards() {
         return cardRepository.getAll();
     }
+
+    public boolean deleteCard(CardModel card) {
+        cardRepository.delete(card);
+        return true;
+    }
 }
