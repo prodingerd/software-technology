@@ -16,7 +16,7 @@
 
     <!-- OverviewActivity -->
     <string name="delete_title">Delete Course</string>
-    <string name="delete_message">Are you sure you want to delete this course?</string>
+    <string name="delete_message_course">Are you sure you want to delete this course?</string>
 
     <!-- AddCourseActivity -->
     <string name="course_name">Course Name</string>
@@ -24,6 +24,8 @@
     <string name="exam_date">Exam Date</string>
     <string name="add_course">Add Course</string>
     <string name="all_input_fields">All input fields have to be filled</string>
+    <string name="missing_implementation">Single Click not implemented</string>
+    <string name="delete_message_card">Are you sure you want to delete this card?</string>
 
     <!-- CourseOverviewActivity -->
     <string name="save_course">Save Course</string>

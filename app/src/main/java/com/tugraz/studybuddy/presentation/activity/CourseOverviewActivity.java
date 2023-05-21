@@ -1,7 +1,9 @@
 package com.tugraz.studybuddy.presentation.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -104,7 +106,22 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
 
     @Override
     public void onItemClick(CardModel card) {
-        throw new UnsupportedOperationException();
+        //TODO implement edit Card
+    }
+
+    @Override
+    public boolean longOnItemClick(CardModel card) {
+        CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+        Context context = this;
+        new AlertDialog.Builder(this).setTitle(R.string.delete_title).setMessage(R.string.delete_message_card)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    cardViewModel.deleteCard(card);
+                    Bundle extras = getIntent().getExtras();
+                    Intent intent = new Intent(this, CourseOverviewActivity.class);
+                    intent.putExtra("course", (CourseModel) extras.get("course"));
+                    startActivity(intent);
+                }).setNegativeButton(android.R.string.cancel, null).show();
+        return true;
     }
 
     private boolean validInput(String examDate, String examDescription, String date) {
