@@ -112,7 +112,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements CardAda
     @Override
     public boolean longOnItemClick(CardModel card) {
         CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-        Context context = this;
         new AlertDialog.Builder(this).setTitle(R.string.delete_title).setMessage(R.string.delete_message_card)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     cardViewModel.deleteCard(card);
