@@ -24,7 +24,6 @@
     <string name="exam_date">Exam Date</string>
     <string name="add_course">Add Course</string>
     <string name="all_input_fields">All input fields have to be filled</string>
-    <string name="missing_implementation">Single Click not implemented</string>
     <string name="delete_message_card">Are you sure you want to delete this card?</string>
 
     <!-- CourseOverviewActivity -->
