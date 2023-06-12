@@ -20,8 +20,7 @@ public class CardService {
         return cardRepository.getAll();
     }
 
-    public boolean deleteCard(CardModel card) {
+    public void deleteCard(CardModel card) {
         cardRepository.delete(card);
-        return true;
     }
 }

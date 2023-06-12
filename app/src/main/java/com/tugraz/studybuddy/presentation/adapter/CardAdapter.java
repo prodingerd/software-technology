@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CardModel;
+import com.tugraz.studybuddy.presentation.generic.IClickListener;
 
 import java.util.List;
 
@@ -27,18 +28,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             textViewBackText = itemView.findViewById(R.id.textViewBackText);
         }
 
-        public void bind(CardModel card, OnClickListener onClickListener) {
+        public void bind(CardModel card, IClickListener<CardModel> clickListener) {
             textViewFrontText.setText(card.getFrontText());
             textViewBackText.setText(card.getBackText());
-            itemView.setOnClickListener(v -> onClickListener.onItemClick(card));
-            itemView.setOnLongClickListener(v -> onClickListener.longOnItemClick(card));
+            itemView.setOnClickListener(v -> clickListener.onItemClick(card));
+            itemView.setOnLongClickListener(v -> clickListener.longOnItemClick(card));
         }
     }
 
     private final List<CardModel> cards;
-    private final OnClickListener onClickListener;
+    private final IClickListener<CardModel> onClickListener;
 
-    public CardAdapter(List<CardModel> cards, OnClickListener onClickListener) {
+    public CardAdapter(List<CardModel> cards, IClickListener<CardModel> onClickListener) {
         this.cards = cards;
         this.onClickListener = onClickListener;
     }
@@ -61,10 +62,5 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return cards.size();
-    }
-
-    public interface OnClickListener {
-        void onItemClick(CardModel card);
-        boolean longOnItemClick(CardModel card);
     }
 }
