@@ -111,11 +111,11 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             // set the custom layout
             final View customLayout = getLayoutInflater().inflate(R.layout.add_card_alert, null);
             builder.setView(customLayout);
+            EditText editTextFrontText = customLayout.findViewById(R.id.editTextFrontText);
+            EditText editTextBacktext = customLayout.findViewById(R.id.editTextBackText);
             // add a button
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // send data from the AlertDialog to the Activity
-                EditText editTextFrontText = customLayout.findViewById(R.id.editTextFrontText);
-                EditText editTextBacktext = customLayout.findViewById(R.id.editTextBackText);
                 String frontText = editTextFrontText.getText().toString();
                 String backText = editTextBacktext.getText().toString();
                 if (frontText.isEmpty() || backText.isEmpty()) {
@@ -123,6 +123,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 }
 
                 if (cardViewModel.createCard(frontText, backText)) {
+                    //TODO update for live data later
                     Intent intent = new Intent(this, CourseOverviewActivity.class);
                     intent.putExtra("course", course);
                     startActivity(intent);
