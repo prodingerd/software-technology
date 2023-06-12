@@ -23,4 +23,12 @@ public class CardService {
     public void deleteCard(CardModel card) {
         cardRepository.delete(card);
     }
+
+    public boolean createCard(String frontText, String backText) {
+        if (frontText.isEmpty() || backText.isEmpty()) {
+            return false;
+        }
+        cardRepository.add(new CardModel(frontText, backText));
+        return true;
+    }
 }
