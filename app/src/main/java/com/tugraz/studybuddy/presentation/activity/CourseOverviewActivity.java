@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -101,6 +102,37 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             } else {
                 Toast.makeText(getApplicationContext(), "Updating course failed!", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        findViewById(R.id.button_add_card).setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Create new card");
+
+            // set the custom layout
+            final View customLayout = getLayoutInflater().inflate(R.layout.add_card_alert, null);
+            builder.setView(customLayout);
+            // add a button
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                // send data from the AlertDialog to the Activity
+                EditText editTextFrontText = customLayout.findViewById(R.id.editTextFrontText);
+                EditText editTextBacktext = customLayout.findViewById(R.id.editTextBackText);
+                String frontText = editTextFrontText.getText().toString();
+                String backText = editTextBacktext.getText().toString();
+                if (frontText.isEmpty() || backText.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
+                }
+
+                if (cardViewModel.createCard(frontText, backText)) {
+                    Intent intent = new Intent(this, CourseOverviewActivity.class);
+                    intent.putExtra("course", course);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
+                }
+            }).setNegativeButton(android.R.string.cancel, null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 

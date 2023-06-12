@@ -28,4 +28,8 @@ public class CardViewModel extends ViewModel {
     public void deleteCard(CardModel card) {
         cardService.deleteCard(card);
     }
+
+    public boolean createCard(String frontText, String backText) {
+        return cardService.createCard(frontText, backText);
+    }
 }
