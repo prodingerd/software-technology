@@ -3,7 +3,6 @@ package com.tugraz.studybuddy.presentation.activity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -19,6 +18,7 @@ import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.presentation.adapter.CardAdapter;
+import com.tugraz.studybuddy.presentation.generic.IClickListener;
 import com.tugraz.studybuddy.presentation.viewmodel.CardViewModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
@@ -27,7 +27,7 @@ import java.time.LocalDate;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CourseOverviewActivity extends AppCompatActivity implements CardAdapter.OnClickListener {
+public class CourseOverviewActivity extends AppCompatActivity implements IClickListener<CardModel> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
