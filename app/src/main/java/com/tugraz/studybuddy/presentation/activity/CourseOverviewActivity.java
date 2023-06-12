@@ -123,10 +123,8 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 }
 
                 if (cardViewModel.createCard(frontText, backText)) {
-                    //TODO update for live data later
-                    Intent intent = new Intent(this, CourseOverviewActivity.class);
-                    intent.putExtra("course", course);
-                    startActivity(intent);
+                    RecyclerView rv = findViewById(R.id.recyclerViewCard);
+                    rv.getAdapter().notifyDataSetChanged();
                 } else {
                     Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
                 }
