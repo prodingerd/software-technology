@@ -108,20 +108,16 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Create new card");
 
-            // set the custom layout
             final View customLayout = getLayoutInflater().inflate(R.layout.add_card_alert, null);
             builder.setView(customLayout);
             EditText editTextFrontText = customLayout.findViewById(R.id.editTextFrontText);
             EditText editTextBacktext = customLayout.findViewById(R.id.editTextBackText);
-            // add a button
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                // send data from the AlertDialog to the Activity
                 String frontText = editTextFrontText.getText().toString();
                 String backText = editTextBacktext.getText().toString();
                 if (frontText.isEmpty() || backText.isEmpty()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
                 }
-
                 if (cardViewModel.createCard(frontText, backText)) {
                     RecyclerView rv = findViewById(R.id.recyclerViewCard);
                     rv.getAdapter().notifyDataSetChanged();
