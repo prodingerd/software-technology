@@ -51,8 +51,7 @@ public class CourseService {
         return true;
     }
 
-    public boolean deleteCourse(CourseModel course) {
+    public void deleteCourse(CourseModel course) {
         courseRepository.delete(course);
-        return true;
     }
 }

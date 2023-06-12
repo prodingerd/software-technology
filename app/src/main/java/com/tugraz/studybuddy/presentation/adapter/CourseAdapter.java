@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CourseModel;
+import com.tugraz.studybuddy.presentation.generic.IClickListener;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             textViewCourseDescription = itemView.findViewById(R.id.course_description);
         }
 
-        public void bind(CourseModel course, OnClickListener onClickListener) {
+        public void bind(CourseModel course, IClickListener<CourseModel> onClickListener) {
             textViewCourseName.setText(course.getName());
             textViewCourseDescription.setText(course.getDescription());
             itemView.setOnClickListener(v -> onClickListener.onItemClick(course));
@@ -36,9 +37,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     }
 
     private final List<CourseModel> courses;
-    private final OnClickListener onClickListener;
+    private final IClickListener<CourseModel> onClickListener;
 
-    public CourseAdapter(List<CourseModel> courses, OnClickListener onClickListener) {
+    public CourseAdapter(List<CourseModel> courses, IClickListener<CourseModel> onClickListener) {
         this.courses = courses;
         this.onClickListener = onClickListener;
     }
@@ -61,11 +62,5 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return courses.size();
-    }
-
-    public interface OnClickListener {
-        void onItemClick(CourseModel course);
-
-        boolean longOnItemClick(CourseModel course);
     }
 }

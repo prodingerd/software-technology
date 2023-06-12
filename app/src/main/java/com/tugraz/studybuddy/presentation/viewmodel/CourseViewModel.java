@@ -33,7 +33,7 @@ public class CourseViewModel extends ViewModel {
         return courseService.updateCourse(id, courseName, courseDescription, examDate);
     }
 
-    public boolean deleteCourse(CourseModel course) {
-        return courseService.deleteCourse(course);
+    public void deleteCourse(CourseModel course) {
+        courseService.deleteCourse(course);
     }
 }
