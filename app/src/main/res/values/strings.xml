@@ -31,4 +31,9 @@
     <string name="play_course">Play</string>
     <string name="edit_course">Edit</string>
 
+
+    <!-- AddCardActivity -->
+    <string name="front_text">Front Text</string>
+    <string name="back_text">Back Text</string>
+
 </resources>
