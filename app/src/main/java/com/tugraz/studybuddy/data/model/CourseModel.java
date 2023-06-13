@@ -29,6 +29,10 @@ public class CourseModel extends BaseModel {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -37,12 +41,12 @@ public class CourseModel extends BaseModel {
         this.userId = userId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public LocalDate abc() {
+        return LocalDate.ofEpochDay(examDate);
     }
 
-    public LocalDate getExamDate() {
-        return LocalDate.ofEpochDay(examDate);
+    public long getExamDate() {
+        return examDate;
     }
 
     public void setExamDate(long examDate) {

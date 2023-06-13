@@ -1,5 +1,6 @@
 package com.tugraz.studybuddy.presentation.viewmodel;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.tugraz.studybuddy.data.model.CourseModel;
@@ -15,22 +16,24 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class CourseViewModel extends ViewModel {
 
     private final CourseService courseService;
+    private final MutableLiveData<List<CourseModel>> courses;
 
     @Inject
     public CourseViewModel(CourseService courseService) {
         this.courseService = courseService;
+        this.courses = courseService.getAllCourses();
     }
 
-    public List<CourseModel> getAllCourses() {
-        return courseService.getAllCourses();
+    public MutableLiveData<List<CourseModel>> getAllCourses() {
+        return courses;
     }
 
-    public boolean createCourse(String courseName, String courseDescription, String examDate) {
-        return courseService.createCourse(courseName, courseDescription, examDate);
+    public boolean createCourse(String name, String description, String examDate) {
+        return courseService.createCourse(name, description, examDate);
     }
 
-    public boolean updateCourse(String id, String courseName, String courseDescription, String examDate) {
-        return courseService.updateCourse(id, courseName, courseDescription, examDate);
+    public boolean updateCourse(String id, String name, String description, String examDate) {
+        return courseService.updateCourse(id, name, description, examDate);
     }
 
     public void deleteCourse(CourseModel course) {
