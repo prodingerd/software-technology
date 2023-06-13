@@ -1,8 +1,11 @@
 package com.tugraz.studybuddy.data.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class CourseModel extends BaseModel {
+
+    public static final List<String> MUTABLE_FIELDS = List.of("updatedAt", "name", "description", "examDate");
 
     private String name;
     private String description;
@@ -10,6 +13,13 @@ public class CourseModel extends BaseModel {
     private long examDate;
 
     public CourseModel() {}
+
+    public CourseModel(String id, String name, String description, LocalDate examDate) {
+        this.setId(id);
+        this.name = name;
+        this.description = description;
+        this.examDate = examDate.toEpochDay();
+    }
 
     public CourseModel(String name, String description, LocalDate examDate) {
         this.name = name;
@@ -41,7 +51,7 @@ public class CourseModel extends BaseModel {
         this.userId = userId;
     }
 
-    public LocalDate abc() {
+    public LocalDate prettyExamDate() {
         return LocalDate.ofEpochDay(examDate);
     }
 
