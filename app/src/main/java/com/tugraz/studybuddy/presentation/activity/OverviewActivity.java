@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.presentation.adapter.CourseAdapter;
-import com.tugraz.studybuddy.presentation.generic.IClickListener;
+import com.tugraz.studybuddy.presentation.contract.IClickListener;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
