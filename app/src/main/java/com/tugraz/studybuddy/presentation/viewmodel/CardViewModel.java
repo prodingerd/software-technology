@@ -1,5 +1,6 @@
 package com.tugraz.studybuddy.presentation.viewmodel;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.tugraz.studybuddy.data.model.CardModel;
@@ -15,21 +16,30 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class CardViewModel extends ViewModel {
 
     private final CardService cardService;
+    private String courseId;
 
     @Inject
     public CardViewModel(CardService cardService) {
         this.cardService = cardService;
     }
 
-    public List<CardModel> getAllCards() {
-        return cardService.getAllCards();
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
-    public void deleteCard(CardModel card) {
-        cardService.deleteCard(card);
+    public MutableLiveData<List<CardModel>> getAllCards() {
+        return cardService.getAllCards(courseId);
     }
 
     public boolean createCard(String frontText, String backText) {
-        return cardService.createCard(frontText, backText);
+        return cardService.createCard(courseId, frontText, backText);
+    }
+
+    public boolean updateCard(String frontText, String backText) {
+        return cardService.updateCard(courseId, frontText, backText);
+    }
+
+    public void deleteCard(CardModel card) {
+        cardService.deleteCard(courseId, card);
     }
 }

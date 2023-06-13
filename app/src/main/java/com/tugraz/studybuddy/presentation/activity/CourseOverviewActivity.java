@@ -19,7 +19,7 @@ import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.presentation.adapter.CardAdapter;
-import com.tugraz.studybuddy.presentation.generic.IClickListener;
+import com.tugraz.studybuddy.presentation.contract.IClickListener;
 import com.tugraz.studybuddy.presentation.viewmodel.CardViewModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
@@ -35,15 +35,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_overview);
 
-        CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-
-        RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
-        CardAdapter cardAdapter = new CardAdapter(cardViewModel.getAllCards(), this);
-
-        cardRecycler.setAdapter(cardAdapter);
-        cardRecycler.setLayoutManager(new LinearLayoutManager(this));
-
         Bundle extras = getIntent().getExtras();
         CourseModel course = (CourseModel) extras.get("course");
 
@@ -53,7 +44,18 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
 
         editTextCourseName.setText(course.getName());
         editTextCourseDescription.setText(course.getDescription());
-        editTextExamDate.setText(course.getExamDate().toString());
+        editTextExamDate.setText(course.prettyExamDate().toString());
+
+        CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+        CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+        RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
+
+        cardViewModel.setCourseId(course.getId());
+
+        cardViewModel.getAllCards().observe(this, cards -> {
+            cardRecycler.setAdapter(new CardAdapter(cards, this));
+            cardRecycler.setLayoutManager(new LinearLayoutManager(this));
+        });
 
         findViewById(R.id.editTextExamDate).setOnClickListener(v -> {
             LocalDate date = LocalDate.now();
@@ -93,10 +95,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             String courseDescription = editTextCourseDescription.getText().toString();
             String examDate = editTextExamDate.getText().toString();
 
-            if (!validInput(courseName, courseDescription, examDate)) {
-                return;
-            }
-
             if (courseViewModel.updateCourse(course.getId(), courseName, courseDescription, examDate)) {
                 startActivity(new Intent(this, OverviewActivity.class));
             } else {
@@ -111,23 +109,21 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             final View customLayout = getLayoutInflater().inflate(R.layout.add_card_alert, null);
             builder.setView(customLayout);
             EditText editTextFrontText = customLayout.findViewById(R.id.editTextFrontText);
-            EditText editTextBacktext = customLayout.findViewById(R.id.editTextBackText);
+            EditText editTextBackText = customLayout.findViewById(R.id.editTextBackText);
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 String frontText = editTextFrontText.getText().toString();
-                String backText = editTextBacktext.getText().toString();
+                String backText = editTextBackText.getText().toString();
+
                 if (frontText.isEmpty() || backText.isEmpty()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
                 }
-                if (cardViewModel.createCard(frontText, backText)) {
-                    RecyclerView rv = findViewById(R.id.recyclerViewCard);
-                    rv.getAdapter().notifyDataSetChanged();
-                } else {
+
+                if (!cardViewModel.createCard(frontText, backText)) {
                     Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
                 }
             }).setNegativeButton(android.R.string.cancel, null);
 
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            builder.create().show();
         });
     }
 
@@ -139,22 +135,12 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
     @Override
     public boolean longOnItemClick(CardModel card) {
         CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
-        new AlertDialog.Builder(this).setTitle(R.string.delete_title).setMessage(R.string.delete_message_card)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    cardViewModel.deleteCard(card);
-                    Bundle extras = getIntent().getExtras();
-                    Intent intent = new Intent(this, CourseOverviewActivity.class);
-                    intent.putExtra("course", (CourseModel) extras.get("course"));
-                    startActivity(intent);
-                }).setNegativeButton(android.R.string.cancel, null).show();
-        return true;
-    }
-
-    private boolean validInput(String examDate, String examDescription, String date) {
-        if (examDate.isEmpty() || examDescription.isEmpty() || date.isEmpty()) {
-            Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_title)
+                .setMessage(R.string.delete_message_card)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> cardViewModel.deleteCard(card))
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
         return true;
     }
 }

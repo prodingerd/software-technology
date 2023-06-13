@@ -12,19 +12,15 @@ import javax.inject.Inject;
 
 public class CourseService {
 
-    private final CourseRepository courseRepository;
+    private final CourseRepository repository;
 
     @Inject
-    public CourseService(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    public CourseService(CourseRepository repository) {
+        this.repository = repository;
     }
 
     public MutableLiveData<List<CourseModel>> getAllCourses() {
-        return courseRepository.getAll();
-    }
-
-    public MutableLiveData<CourseModel> getCourseById(String id) {
-        return courseRepository.getById(id);
+        return repository.getAll();
     }
 
     public boolean createCourse(String name, String description, String examDate) {
@@ -33,7 +29,7 @@ public class CourseService {
         }
 
         LocalDate parsedExamDate = LocalDate.parse(examDate);
-        courseRepository.add(new CourseModel(name, description, parsedExamDate));
+        repository.add(new CourseModel(name, description, parsedExamDate));
 
         return true;
     }
@@ -44,16 +40,11 @@ public class CourseService {
         }
 
         LocalDate parsedExamDate = LocalDate.parse(examDate);
-        CourseModel toUpdate = courseRepository.getById(id).getValue();
-        toUpdate.setName(name);
-        toUpdate.setDescription(description);
-        toUpdate.setExamDate(parsedExamDate.toEpochDay());
-        courseRepository.update(toUpdate);
-
+        repository.update(new CourseModel(id, name, description, parsedExamDate));
         return true;
     }
 
     public void deleteCourse(CourseModel course) {
-        courseRepository.delete(course);
+        repository.delete(course);
     }
 }
