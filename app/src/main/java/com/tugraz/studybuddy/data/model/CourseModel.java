@@ -1,23 +1,20 @@
 package com.tugraz.studybuddy.data.model;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class CourseModel extends BaseModel {
 
     private String name;
     private String description;
     private String userId;
-    private LocalDate examDate;
+    private long examDate;
 
     public CourseModel() {}
 
     public CourseModel(String name, String description, LocalDate examDate) {
         this.name = name;
         this.description = description;
-        this.examDate = examDate;
-
-        setId(UUID.randomUUID().toString());
+        this.examDate = examDate.toEpochDay();
     }
 
     public String getName() {
@@ -45,10 +42,10 @@ public class CourseModel extends BaseModel {
     }
 
     public LocalDate getExamDate() {
-        return examDate;
+        return LocalDate.ofEpochDay(examDate);
     }
 
-    public void setExamDate(LocalDate examDate) {
+    public void setExamDate(long examDate) {
         this.examDate = examDate;
     }
 }
