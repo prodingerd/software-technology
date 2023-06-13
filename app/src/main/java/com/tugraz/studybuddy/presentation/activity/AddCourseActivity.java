@@ -42,30 +42,16 @@ public class AddCourseActivity extends AppCompatActivity {
             picker.show();
         });
 
-        findViewById(R.id.buttonGoBack).setOnClickListener(v -> startActivity(new Intent(this, OverviewActivity.class)));
-
         findViewById(R.id.buttonAddCourse).setOnClickListener(v -> {
             String courseName = editTextCourseName.getText().toString();
             String courseDescription = editTextCourseDescription.getText().toString();
             String examDate = editTextExamDate.getText().toString();
 
-            if (!validInput(courseName, courseDescription, examDate)) {
-                return;
-            }
-
             if (courseViewModel.createCourse(courseName, courseDescription, examDate)) {
                 startActivity(new Intent(this, OverviewActivity.class));
             } else {
-                Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.all_input_fields, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private boolean validInput(String examDate, String examDescription, String date) {
-        if (examDate.isEmpty() || examDescription.isEmpty() || date.isEmpty()) {
-            Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 }
