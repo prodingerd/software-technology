@@ -30,8 +30,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CourseOverviewActivity extends AppCompatActivity implements IClickListener<CardModel> {
 
-    private CardViewModel cardViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +47,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
         editTextExamDate.setText(course.prettyExamDate().toString());
 
         CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+        CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
 
         cardViewModel.setCourseId(course.getId());
@@ -127,6 +125,8 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
 
     @Override
     public void onItemClick(CardModel card) {
+        CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Edit card");
 
