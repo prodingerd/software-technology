@@ -30,6 +30,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CourseOverviewActivity extends AppCompatActivity implements IClickListener<CardModel> {
 
+    private CardViewModel cardViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
         editTextExamDate.setText(course.prettyExamDate().toString());
 
         CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        CardViewModel cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
+        cardViewModel = new ViewModelProvider(this).get(CardViewModel.class);
         RecyclerView cardRecycler = findViewById(R.id.recyclerViewCard);
 
         cardViewModel.setCourseId(course.getId());
@@ -114,10 +116,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 String frontText = editTextFrontText.getText().toString();
                 String backText = editTextBackText.getText().toString();
 
-                if (frontText.isEmpty() || backText.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.all_input_fields), Toast.LENGTH_SHORT).show();
-                }
-
                 if (!cardViewModel.createCard(frontText, backText)) {
                     Toast.makeText(getApplicationContext(), "Course creation failed!", Toast.LENGTH_SHORT).show();
                 }
@@ -129,7 +127,25 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
 
     @Override
     public void onItemClick(CardModel card) {
-        //TODO implement edit Card
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Edit card");
+
+        final View customLayout = getLayoutInflater().inflate(R.layout.add_card_alert, null);
+        builder.setView(customLayout);
+        EditText editTextFrontText = customLayout.findViewById(R.id.editTextFrontText);
+        EditText editTextBackText = customLayout.findViewById(R.id.editTextBackText);
+        editTextFrontText.setText(card.getFrontText());
+        editTextBackText.setText(card.getBackText());
+        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            String frontText = editTextFrontText.getText().toString();
+            String backText = editTextBackText.getText().toString();
+
+            if (!cardViewModel.updateCard(card.getId(),frontText, backText)) {
+                Toast.makeText(getApplicationContext(), "Failed to update card!", Toast.LENGTH_SHORT).show();
+            }
+        }).setNegativeButton(android.R.string.cancel, null);
+
+        builder.create().show();
     }
 
     @Override
