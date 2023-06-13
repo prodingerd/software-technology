@@ -11,6 +11,12 @@ public class CardModel extends BaseModel {
 
     public CardModel() {}
 
+    public CardModel(String id, String frontText, String backText) {
+        this.setId(id);
+        this.frontText = frontText;
+        this.backText = backText;
+    }
+
     public CardModel(String frontText, String backText) {
         this.frontText = frontText;
         this.backText = backText;

@@ -35,8 +35,8 @@ public class CardViewModel extends ViewModel {
         return cardService.createCard(courseId, frontText, backText);
     }
 
-    public boolean updateCard(String frontText, String backText) {
-        return cardService.updateCard(courseId, frontText, backText);
+    public boolean updateCard(String id, String frontText, String backText) {
+        return cardService.updateCard(courseId, id, frontText, backText);
     }
 
     public void deleteCard(CardModel card) {
