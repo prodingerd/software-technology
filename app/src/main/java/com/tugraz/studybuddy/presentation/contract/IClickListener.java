@@ -1,4 +1,4 @@
-package com.tugraz.studybuddy.presentation.generic;
+package com.tugraz.studybuddy.presentation.contract;
 
 public interface IClickListener<T> {
 
