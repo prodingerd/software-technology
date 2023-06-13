@@ -4,20 +4,22 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.firestore.SetOptions;
+import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class CourseRepository extends BaseRepository implements ICourseRepository<CourseModel> {
+public class CourseRepository extends BaseRepository implements ICourseRepository {
 
     private static final String TAG = "CourseRepository";
     private static final String COURSE_COLLECTION = "courses";
+    private static final String CARD_COLLECTION = "cards";
 
     @Inject
-    public CourseRepository() {
-    }
+    public CourseRepository() {}
 
     @Override
     public MutableLiveData<List<CourseModel>> getAll() {
@@ -39,25 +41,6 @@ public class CourseRepository extends BaseRepository implements ICourseRepositor
     }
 
     @Override
-    public MutableLiveData<CourseModel> getById(String id) {
-        var course = new MutableLiveData<CourseModel>();
-
-        db.collection(COURSE_COLLECTION)
-                .document(id)
-                .addSnapshotListener(((value, exception) -> {
-                    if (exception != null) {
-                        Log.w(TAG, "Failure getting document", exception);
-                    }
-
-                    if (value != null) {
-                        course.postValue(value.toObject(CourseModel.class));
-                    }
-                }));
-
-        return course;
-    }
-
-    @Override
     public void add(CourseModel entity) {
         entity.setUserId(getCurrentUserId());
 
@@ -71,7 +54,7 @@ public class CourseRepository extends BaseRepository implements ICourseRepositor
     public void update(CourseModel entity) {
         db.collection(COURSE_COLLECTION)
                 .document(entity.getId())
-                .set(entity)
+                .set(entity, SetOptions.mergeFields(CourseModel.MUTABLE_FIELDS))
                 .addOnSuccessListener(unused -> Log.d(TAG, "Success updating document"))
                 .addOnFailureListener(exception -> Log.w(TAG, "Failure updating document", exception));
     }
@@ -83,5 +66,56 @@ public class CourseRepository extends BaseRepository implements ICourseRepositor
                 .delete()
                 .addOnSuccessListener(unused -> Log.d(TAG, "Success deleting document"))
                 .addOnFailureListener(exception -> Log.w(TAG, "Failure deleting document", exception));
+    }
+
+    public MutableLiveData<List<CardModel>> getAllCards(String courseId) {
+        var liveCards = new MutableLiveData<List<CardModel>>();
+
+        db.collection(COURSE_COLLECTION)
+                .document(courseId)
+                .collection(CARD_COLLECTION)
+                .addSnapshotListener((value, exception) -> {
+                    if (exception != null) {
+                        Log.w(TAG, "Failure getting cards", exception);
+                    }
+
+                    if (value != null) {
+                        liveCards.postValue(value.toObjects(CardModel.class));
+                    }
+                });
+
+        return liveCards;
+    }
+
+    @Override
+    public void addCard(String courseId, CardModel entity) {
+        db.collection(COURSE_COLLECTION)
+                .document(courseId)
+                .collection(CARD_COLLECTION)
+                .add(entity)
+                .addOnSuccessListener(document -> Log.d(TAG, "Success adding card"))
+                .addOnFailureListener(exception -> Log.w(TAG, "Failure adding card", exception));
+    }
+
+    @Override
+    public void updateCard(String courseId, CardModel entity) {
+        db.collection(COURSE_COLLECTION)
+                .document(courseId)
+                .collection(CARD_COLLECTION)
+                .document(entity.getId())
+                .set(entity, SetOptions.mergeFields(CardModel.MUTABLE_FIELDS))
+                .addOnSuccessListener(unused -> Log.d(TAG, "Success updating card"))
+                .addOnFailureListener(exception -> Log.w(TAG, "Failure updating card", exception));
+    }
+
+    @Override
+    public void deleteCard(String courseId, CardModel entity) {
+        db.collection(COURSE_COLLECTION)
+                .document(courseId)
+                .collection(CARD_COLLECTION)
+                .document(entity.getId())
+                .delete()
+                .addOnSuccessListener(unused -> Log.d(TAG, "Success deleting card"))
+                .addOnFailureListener(exception -> Log.w(TAG, "Failure deleting card", exception));
     }
 }
