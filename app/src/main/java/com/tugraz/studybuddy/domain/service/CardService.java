@@ -31,8 +31,13 @@ public class CardService {
         return true;
     }
 
-    public boolean updateCard(String id, String frontText, String backText) {
-        return false;
+    public boolean updateCard(String courseId, String id, String frontText, String backText) {
+        if (courseId.isEmpty() || id.isEmpty() || frontText.isEmpty() || backText.isEmpty()) {
+            return false;
+        }
+
+        repository.updateCard(courseId, new CardModel(id, frontText, backText));
+        return true;
     }
 
     public void deleteCard(String courseId, CardModel card) {
