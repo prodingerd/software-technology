@@ -1,6 +1,10 @@
 package com.tugraz.studybuddy.data.model;
 
+import java.util.List;
+
 public class CardModel extends BaseModel {
+
+    public static final List<String> MUTABLE_FIELDS = List.of("updatedAt", "frontText", "backText");
 
     private String frontText;
     private String backText;
