@@ -1,55 +1,87 @@
 package com.tugraz.studybuddy.data.repository;
 
+import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
+
 import com.tugraz.studybuddy.data.model.CourseModel;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 
-public class CourseRepository implements ICourseRepository<CourseModel> {
+public class CourseRepository extends BaseRepository implements ICourseRepository<CourseModel> {
 
-    private static final List<CourseModel> courses = new ArrayList<>();
+    private static final String TAG = "CourseRepository";
+    private static final String COURSE_COLLECTION = "courses";
 
     @Inject
     public CourseRepository() {
-        if (courses.isEmpty()) {
-            courses.addAll(List.of(
-                    new CourseModel("Software Technology", "Summer 2023", LocalDate.now()),
-                    new CourseModel("Android Development", "Summer 2023", LocalDate.now()),
-                    new CourseModel("Analysis T 10000000", "Summer 2023", LocalDate.now())
-            ));
-        }
     }
 
     @Override
-    public List<CourseModel> getAll() {
-        return courses;
+    public MutableLiveData<List<CourseModel>> getAll() {
+        var liveCourses = new MutableLiveData<List<CourseModel>>();
+
+        db.collection(COURSE_COLLECTION)
+                .whereEqualTo("userId", getCurrentUserId())
+                .addSnapshotListener((value, exception) -> {
+                    if (exception != null) {
+                        Log.w(TAG, "Failure getting documents", exception);
+                    }
+
+                    if (value != null) {
+                        liveCourses.postValue(value.toObjects(CourseModel.class));
+                    }
+                });
+
+        return liveCourses;
     }
 
     @Override
-    public CourseModel getById(String id) {
-        return courses.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst().orElse(null);
+    public MutableLiveData<CourseModel> getById(String id) {
+        var course = new MutableLiveData<CourseModel>();
+
+        db.collection(COURSE_COLLECTION)
+                .document(id)
+                .addSnapshotListener(((value, exception) -> {
+                    if (exception != null) {
+                        Log.w(TAG, "Failure getting document", exception);
+                    }
+
+                    if (value != null) {
+                        course.postValue(value.toObject(CourseModel.class));
+                    }
+                }));
+
+        return course;
     }
 
     @Override
     public void add(CourseModel entity) {
-        courses.add(entity);
+        entity.setUserId(getCurrentUserId());
+
+        db.collection(COURSE_COLLECTION)
+                .add(entity)
+                .addOnSuccessListener(document -> Log.d(TAG, "Success adding document"))
+                .addOnFailureListener(exception -> Log.w(TAG, "Failure adding document", exception));
     }
 
     @Override
     public void update(CourseModel entity) {
-        IntStream.range(0, courses.size())
-                .filter(x -> courses.get(x).getId().equals(entity.getId()))
-                .findFirst().ifPresent(i -> courses.set(i, entity));
+        db.collection(COURSE_COLLECTION)
+                .document(entity.getId())
+                .set(entity)
+                .addOnSuccessListener(unused -> Log.d(TAG, "Success updating document"))
+                .addOnFailureListener(exception -> Log.w(TAG, "Failure updating document", exception));
     }
 
     @Override
     public void delete(CourseModel entity) {
-        courses.remove(entity);
+        db.collection(COURSE_COLLECTION)
+                .document(entity.getId())
+                .delete()
+                .addOnSuccessListener(unused -> Log.d(TAG, "Success deleting document"))
+                .addOnFailureListener(exception -> Log.w(TAG, "Failure deleting document", exception));
     }
 }

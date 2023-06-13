@@ -1,19 +1,19 @@
 package com.tugraz.studybuddy.data.model;
 
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public abstract class BaseModel implements Serializable {
 
     @DocumentId
     private String id;
     @ServerTimestamp
-    private Timestamp createdAt;
+    private Date createdAt;
     @ServerTimestamp
-    private Timestamp updatedAt;
+    private Date updatedAt;
 
     public String getId() {
         return id;
@@ -23,19 +23,19 @@ public abstract class BaseModel implements Serializable {
         this.id = id;
     }
 
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
