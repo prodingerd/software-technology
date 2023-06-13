@@ -42,8 +42,4 @@ public class CardViewModel extends ViewModel {
     public void deleteCard(CardModel card) {
         cardService.deleteCard(courseId, card);
     }
-
-    public boolean updateCard(String id, String frontText, String backText) {
-        return cardService.updateCard(id, frontText, backText);
-    }
 }
