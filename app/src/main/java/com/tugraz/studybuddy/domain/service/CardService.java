@@ -1,7 +1,9 @@
 package com.tugraz.studybuddy.domain.service;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.tugraz.studybuddy.data.model.CardModel;
-import com.tugraz.studybuddy.data.repository.CardRepository;
+import com.tugraz.studybuddy.data.repository.CourseRepository;
 
 import java.util.List;
 
@@ -9,26 +11,31 @@ import javax.inject.Inject;
 
 public class CardService {
 
-    private final CardRepository cardRepository;
+    private final CourseRepository repository;
 
     @Inject
-    public CardService(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
+    public CardService(CourseRepository repository) {
+        this.repository = repository;
     }
 
-    public List<CardModel> getAllCards() {
-        return cardRepository.getAll();
+    public MutableLiveData<List<CardModel>> getAllCards(String courseId) {
+        return repository.getAllCards(courseId);
     }
 
-    public void deleteCard(CardModel card) {
-        cardRepository.delete(card);
-    }
-
-    public boolean createCard(String frontText, String backText) {
+    public boolean createCard(String courseId, String frontText, String backText) {
         if (frontText.isEmpty() || backText.isEmpty()) {
             return false;
         }
-        cardRepository.add(new CardModel(frontText, backText));
+
+        repository.addCard(courseId, new CardModel(frontText, backText));
         return true;
+    }
+
+    public boolean updateCard(String id, String frontText, String backText) {
+        return false;
+    }
+
+    public void deleteCard(String courseId, CardModel card) {
+        repository.deleteCard(courseId, card);
     }
 }

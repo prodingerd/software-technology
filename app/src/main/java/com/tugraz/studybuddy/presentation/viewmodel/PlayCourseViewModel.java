@@ -24,11 +24,13 @@ public class PlayCourseViewModel extends ViewModel {
     public PlayCourseViewModel(CourseService courseService, CardService cardService) {
         this.courseService = courseService;
         this.cardService = cardService;
+        this.cards = new ArrayDeque<>();
     }
 
     public void initialize(String courseId) {
-        courseService.getCourseById(courseId);
-        cards = new ArrayDeque<>(cardService.getAllCards());
+        // TODO Implement this.
+//        courseService.getCourseById(courseId);
+//        cards = new ArrayDeque<>(cardService.getAllCards());
     }
 
     public CardModel nextCard() {
