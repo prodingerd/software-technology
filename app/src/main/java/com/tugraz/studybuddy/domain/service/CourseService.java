@@ -1,5 +1,7 @@
 package com.tugraz.studybuddy.domain.service;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.data.repository.CourseRepository;
 
@@ -17,11 +19,11 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public List<CourseModel> getAllCourses() {
+    public MutableLiveData<List<CourseModel>> getAllCourses() {
         return courseRepository.getAll();
     }
 
-    public CourseModel getCourseById(String id) {
+    public MutableLiveData<CourseModel> getCourseById(String id) {
         return courseRepository.getById(id);
     }
 
@@ -42,10 +44,10 @@ public class CourseService {
         }
 
         LocalDate parsedExamDate = LocalDate.parse(examDate);
-        CourseModel toUpdate = courseRepository.getById(id);
+        CourseModel toUpdate = courseRepository.getById(id).getValue();
         toUpdate.setName(name);
         toUpdate.setDescription(description);
-        toUpdate.setExamDate(parsedExamDate);
+        toUpdate.setExamDate(parsedExamDate.toEpochDay());
         courseRepository.update(toUpdate);
 
         return true;
