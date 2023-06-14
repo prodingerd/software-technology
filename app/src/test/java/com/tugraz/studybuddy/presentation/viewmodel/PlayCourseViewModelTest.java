@@ -34,6 +34,6 @@ public class PlayCourseViewModelTest {
 
     @Test
     public void dummyTest() {
-        assert true;
+        Assert.assertTrue(true);
     }
 }
