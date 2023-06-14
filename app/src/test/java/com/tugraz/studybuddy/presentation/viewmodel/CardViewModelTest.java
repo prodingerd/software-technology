@@ -25,31 +25,31 @@ public class CardViewModelTest {
 
     @Test
     public void givenEmptyRepository_whenGetAllCards_thenReturnEmptyList() {
-        Assert.assertEquals(cardServiceViewModel.getAllCards(), null);
+        Assert.assertNull(cardServiceViewModel.getAllCards());
     }
 
     @Test
     public void givenEmptyRepository_whenCreateInvalidCard_thenReturnFalse() {
-        Assert.assertEquals(cardServiceViewModel.createCard("", ""), false);
+        Assert.assertFalse(cardServiceViewModel.createCard("", ""));
     }
 
     @Test
     public void givenEmptyRepository_whenCreateValidCard_thenReturnTrue() {
         cardServiceViewModel.setCourseId("1");
         Mockito.when(cardServiceMock.createCard("1", "front", "back")).thenReturn(true);
-        Assert.assertEquals(cardServiceViewModel.createCard("front", "back"), true);
+        Assert.assertTrue(cardServiceViewModel.createCard("front", "back"));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateInvalidCard_thenReturnFalse() {
-        Assert.assertEquals(cardServiceViewModel.updateCard("", "", ""), false);
+        Assert.assertFalse(cardServiceViewModel.updateCard("", "", ""));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateValidCard_thenReturnTrue() {
         cardServiceViewModel.setCourseId("1");
         Mockito.when(cardServiceMock.updateCard("1", "1", "front", "back")).thenReturn(true);
-        Assert.assertEquals(cardServiceViewModel.updateCard("1", "front", "back"), true);
+        Assert.assertTrue(cardServiceViewModel.updateCard("1", "front", "back"));
     }
 
     @Test

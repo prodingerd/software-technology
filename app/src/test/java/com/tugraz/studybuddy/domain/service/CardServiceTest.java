@@ -30,27 +30,27 @@ public class CardServiceTest {
     @Test
     public void givenEmptyRepository_whenGetAll_thenReturnEmptyList() {
         Mockito.when(courseRepositoryMock.getAllCards("1")).thenReturn(new MutableLiveData<List<CardModel>>());
-        Assert.assertEquals(cardService.getAllCards("1").getValue(), null);
+        Assert.assertNull(cardService.getAllCards("1").getValue());
     }
 
     @Test
     public void givenEmptyRepository_whenCreateInvalidCard_thenReturnFalse() {
-        Assert.assertEquals(cardService.createCard("1", "", ""), false);
+        Assert.assertFalse(cardService.createCard("1", "", ""));
     }
 
     @Test
     public void givenEmptyRepository_whenCreateValidCard_thenReturnTrue() {
-        Assert.assertEquals(cardService.createCard("1", "front", "back"), true);
+        Assert.assertTrue(cardService.createCard("1", "front", "back"));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateInvalidCard_thenReturnFalse() {
-        Assert.assertEquals(cardService.updateCard("1", "", "", ""), false);
+        Assert.assertFalse(cardService.updateCard("1", "", "", ""));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateValidCard_thenReturnTrue() {
-        Assert.assertEquals(cardService.updateCard("1", "1", "front", "back"), true);
+        Assert.assertTrue(cardService.updateCard("1", "1", "front", "back"));
     }
 
     @Test
