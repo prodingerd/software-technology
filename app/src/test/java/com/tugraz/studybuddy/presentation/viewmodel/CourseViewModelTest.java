@@ -32,29 +32,29 @@ public class CourseViewModelTest {
 
     @Test
     public void givenEmptyRepository_whenGetAllCourses_thenReturnEmptyList() {
-        Assert.assertEquals(courseViewModel.getAllCourses().getValue(), null);
+        Assert.assertNull(courseViewModel.getAllCourses().getValue());
     }
 
     @Test
     public void givenEmptyRepository_whenCreateInvalidCourse_thenReturnFalse() {
-        Assert.assertEquals(courseViewModel.createCourse("", "", "2023-01-01"), false);
+        Assert.assertFalse(courseViewModel.createCourse("", "", "2023-01-01"));
     }
 
     @Test
     public void givenEmptyRepository_whenCreateValidCourse_thenReturnTrue() {
         Mockito.when(courseServiceMock.createCourse("1", "1", "2023-01-01")).thenReturn(true);
-        Assert.assertEquals(courseViewModel.createCourse("1", "1", "2023-01-01"), true);
+        Assert.assertTrue(courseViewModel.createCourse("1", "1", "2023-01-01"));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateInvalidCourse_thenReturnFalse() {
-        Assert.assertEquals(courseViewModel.updateCourse("", "", "", "2023-01-01"), false);
+        Assert.assertFalse(courseViewModel.updateCourse("", "", "", "2023-01-01"));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateValidCourse_thenReturnTrue() {
         Mockito.when(courseServiceMock.updateCourse("1", "1", "1", "2023-01-01")).thenReturn(true);
-        Assert.assertEquals(courseViewModel.updateCourse("1", "1", "1", "2023-01-01"), true);
+        Assert.assertTrue(courseViewModel.updateCourse("1", "1", "1", "2023-01-01"));
     }
 
     @Test

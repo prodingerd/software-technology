@@ -31,27 +31,27 @@ public class CourseServiceTest {
     @Test
     public void givenEmptyRepository_whenGetAll_thenReturnEmptyList() {
         Mockito.when(courseRepositoryMock.getAll()).thenReturn(new MutableLiveData<List<CourseModel>>());
-        Assert.assertEquals(courseService.getAllCourses().getValue(), null);
+        Assert.assertNull(courseService.getAllCourses().getValue());
     }
 
     @Test
     public void givenEmptyRepository_whenCreateInvalidCourse_thenReturnFalse() {
-        Assert.assertEquals(courseService.createCourse("", "", ""), false);
+        Assert.assertFalse(courseService.createCourse("", "", ""));
     }
 
     @Test
     public void givenEmptyRepository_whenCreateValidCourse_thenReturnTrue() {
-        Assert.assertEquals(courseService.createCourse("name", "description", "2023-01-01"), true);
+        Assert.assertTrue(courseService.createCourse("name", "description", "2023-01-01"));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateInvalidCourse_thenReturnFalse() {
-        Assert.assertEquals(courseService.updateCourse("", "", "", ""), false);
+        Assert.assertFalse(courseService.updateCourse("", "", "", ""));
     }
 
     @Test
     public void givenEmptyRepository_whenUpdateValidCourse_thenReturnTrue() {
-        Assert.assertEquals(courseService.updateCourse("1", "name", "description", "2023-01-01"), true);
+        Assert.assertTrue(courseService.updateCourse("1", "name", "description", "2023-01-01"));
     }
 
     @Test
