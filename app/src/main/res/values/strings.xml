@@ -42,5 +42,8 @@
     <string name="shareMenuItem">shareMenuItem</string>
     <string name="ParentMenuButton">ParentMenuButton</string>
     <string name="addCardMenuItem">AddCardMenuItem</string>
+    <string name="add_shared_course">Add shared course</string>
+    <string name="add_new_course">Add new Course</string>
+    <string name="addCourseMenuItem">\n</string>
 
 </resources>

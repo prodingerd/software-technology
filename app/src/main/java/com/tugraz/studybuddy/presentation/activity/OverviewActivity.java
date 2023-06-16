@@ -3,12 +3,16 @@ package com.tugraz.studybuddy.presentation.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.presentation.adapter.CourseAdapter;
@@ -33,7 +37,46 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
             courseRecycler.setLayoutManager(new LinearLayoutManager(this));
         });
 
-        findViewById(R.id.button_add_course).setOnClickListener(v -> startActivity(new Intent(this, AddCourseActivity.class)));
+        FloatingActionButton mFab, mAddFab, mShareFab;
+
+        TextView addActionText, shareActionText;
+
+
+        mFab = findViewById(R.id.add_fab);
+
+        mAddFab = findViewById(R.id.add_course_fab);
+        mShareFab = findViewById(R.id.share_fab);
+
+        addActionText = findViewById(R.id.add_course_action_text);
+        shareActionText = findViewById(R.id.share_action_text);
+
+        mAddFab.setVisibility(View.GONE);
+        mShareFab.setVisibility(View.GONE);
+
+        addActionText.setVisibility(View.GONE);
+        shareActionText.setVisibility(View.GONE);
+
+        mFab.setOnClickListener(view -> {
+            if (mAddFab.getVisibility() == View.GONE) {
+                mAddFab.show();
+                mShareFab.show();
+                addActionText.setVisibility(View.VISIBLE);
+                shareActionText.setVisibility(View.VISIBLE);
+
+            } else {
+                mAddFab.setVisibility(View.GONE);
+                mShareFab.setVisibility(View.GONE);
+                addActionText.setVisibility(View.GONE);
+                shareActionText.setVisibility(View.GONE);
+            }
+        });
+
+        mShareFab.setOnClickListener(
+                //TODO Sharing
+                view -> Toast.makeText(this, "TODO", Toast.LENGTH_SHORT
+                ).show());
+
+        mAddFab.setOnClickListener(v -> startActivity(new Intent(this, AddCourseActivity.class)));
     }
 
     @Override
