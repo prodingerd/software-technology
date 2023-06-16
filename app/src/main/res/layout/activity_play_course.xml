@@ -41,6 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="40dp"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        android:backgroundTint="@color/jordy_blue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
