@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tugraz.studybuddy.R;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
@@ -86,10 +88,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             }
         });
 
-        findViewById(R.id.buttonPlayCourse).setOnClickListener(v ->
-                startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course))
-        );
-
         findViewById(R.id.buttonSaveCourse).setOnClickListener(v -> {
             String courseName = editTextCourseName.getText().toString();
             String courseDescription = editTextCourseDescription.getText().toString();
@@ -102,7 +100,57 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             }
         });
 
-        findViewById(R.id.button_add_card).setOnClickListener(v -> {
+        FloatingActionButton mFab, mAddFab, mShareFab, mPlayFab;
+
+        TextView addActionText, shareActionText, playActionText;
+
+        mFab = findViewById(R.id.add_fab);
+
+        mAddFab = findViewById(R.id.add_card_fab);
+        mShareFab = findViewById(R.id.share_fab);
+        mPlayFab = findViewById(R.id.play_fab);
+
+        addActionText = findViewById(R.id.add_card_action_text);
+        shareActionText = findViewById(R.id.share_action_text);
+        playActionText = findViewById(R.id.play_action_text);
+
+        mAddFab.setVisibility(View.GONE);
+        mShareFab.setVisibility(View.GONE);
+        mPlayFab.setVisibility(View.GONE);
+        addActionText.setVisibility(View.GONE);
+        shareActionText.setVisibility(View.GONE);
+        playActionText.setVisibility(View.GONE);
+
+        mFab.setOnClickListener(view -> {
+            if (mAddFab.getVisibility() == View.GONE) {
+                mAddFab.show();
+                mShareFab.show();
+                mPlayFab.setVisibility(View.VISIBLE);
+                addActionText.setVisibility(View.VISIBLE);
+                shareActionText.setVisibility(View.VISIBLE);
+                playActionText.setVisibility(View.VISIBLE);
+
+            } else {
+                mAddFab.setVisibility(View.GONE);
+                mShareFab.setVisibility(View.GONE);
+                mPlayFab.setVisibility(View.GONE);
+                addActionText.setVisibility(View.GONE);
+                shareActionText.setVisibility(View.GONE);
+                playActionText.setVisibility(View.GONE);
+
+            }
+        });
+
+        mPlayFab.setOnClickListener(v ->
+                startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course))
+        );
+
+        mShareFab.setOnClickListener(
+                //TODO Sharing
+                view -> Toast.makeText(this, "TODO", Toast.LENGTH_SHORT
+                ).show());
+
+        mAddFab.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Create new card");
 

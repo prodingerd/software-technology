@@ -100,17 +100,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextExamDate" />
 
-    <Button
-        android:id="@+id/buttonPlayCourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/play_course"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSaveCourse"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextExamDate" />
-
     <Switch
         android:id="@+id/switchToggleEditCourseDetails"
         android:layout_width="wrap_content"
@@ -118,7 +107,7 @@
         android:layout_marginTop="36dp"
         android:checked="false"
         android:text="@string/edit_course"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPlayCourse"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSaveCourse"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextExamDate"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -127,26 +116,94 @@
         android:id="@+id/recyclerViewCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlayCourse"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSaveCourse" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_add_card"
+        android:id="@+id/add_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:clickable="true"
-        android:contentDescription="@string/app_name"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/jordy_blue"
+        android:src="@drawable/baseline_more_horiz_24"
+        app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="40dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:contentDescription="@string/ParentMenuButton" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_card_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/jordy_blue"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/add_fab"
+        app:layout_constraintEnd_toEndOf="@+id/add_fab"
+        app:layout_constraintStart_toStartOf="@+id/add_fab"
+        app:srcCompat="@drawable/baseline_add_24"
+        android:contentDescription="@string/addCardMenuItem" />
+
+    <TextView
+        android:id="@+id/add_card_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/add_card_action_text"
+        app:layout_constraintBottom_toBottomOf="@+id/add_card_fab"
+        app:layout_constraintEnd_toStartOf="@+id/add_card_fab"
+        app:layout_constraintTop_toTopOf="@+id/add_card_fab" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/jordy_blue"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/add_card_fab"
+        app:layout_constraintEnd_toEndOf="@+id/add_card_fab"
+        app:layout_constraintStart_toStartOf="@+id/add_card_fab"
+        app:srcCompat="@drawable/baseline_people_alt_24"
+        android:contentDescription="@string/shareMenuItem" />
+
+    <TextView
+        android:id="@+id/share_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/share_action_text"
+        app:layout_constraintBottom_toBottomOf="@+id/share_fab"
+        app:layout_constraintEnd_toStartOf="@+id/share_fab"
+        app:layout_constraintTop_toTopOf="@+id/share_fab" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/play_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/jordy_blue"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/share_fab"
+        app:layout_constraintEnd_toEndOf="@+id/share_fab"
+        app:layout_constraintStart_toStartOf="@+id/share_fab"
+        app:srcCompat="@drawable/baseline_play_arrow_24"
+        android:contentDescription="@string/playMenuItem" />
+
+    <TextView
+        android:id="@+id/play_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/play_course_action_text"
+        app:layout_constraintBottom_toBottomOf="@+id/play_fab"
+        app:layout_constraintEnd_toStartOf="@+id/play_fab"
+        app:layout_constraintTop_toTopOf="@+id/play_fab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
