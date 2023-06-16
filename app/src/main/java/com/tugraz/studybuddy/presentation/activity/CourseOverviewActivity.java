@@ -1,13 +1,11 @@
 package com.tugraz.studybuddy.presentation.activity;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,23 +67,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                     },
                     date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
             picker.show();
-        });
-
-        @SuppressLint("UseSwitchCompatOrMaterialCode")
-        Switch simpleSwitch = findViewById(R.id.switchToggleEditCourseDetails);
-
-        simpleSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                editTextCourseName.setEnabled(true);
-                editTextCourseDescription.setEnabled(true);
-                editTextExamDate.setEnabled(true);
-                findViewById(R.id.buttonSaveCourse).setEnabled(true);
-            } else {
-                editTextCourseName.setEnabled(false);
-                editTextCourseDescription.setEnabled(false);
-                editTextExamDate.setEnabled(false);
-                findViewById(R.id.buttonSaveCourse).setEnabled(false);
-            }
         });
 
         findViewById(R.id.buttonSaveCourse).setOnClickListener(v -> {
