@@ -1,14 +1,11 @@
 package com.tugraz.studybuddy.presentation.viewmodel;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.domain.service.CardService;
-import com.tugraz.studybuddy.domain.service.CourseService;
-
-import java.util.ArrayDeque;
-import java.util.Queue;
-
+import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -16,24 +13,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class PlayCourseViewModel extends ViewModel {
 
-    private final CourseService courseService;
     private final CardService cardService;
-    private Queue<CardModel> cards;
 
     @Inject
-    public PlayCourseViewModel(CourseService courseService, CardService cardService) {
-        this.courseService = courseService;
+    public PlayCourseViewModel(CardService cardService) {
         this.cardService = cardService;
-        this.cards = new ArrayDeque<>();
     }
 
-    public void initialize(String courseId) {
-        // TODO Implement this.
-//        courseService.getCourseById(courseId);
-//        cards = new ArrayDeque<>(cardService.getAllCards());
-    }
-
-    public CardModel nextCard() {
-        return cards.poll();
+    public MutableLiveData<List<CardModel>> initialize(String courseId) {
+        return cardService.getAllCards(courseId);
     }
 }
