@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="40dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:backgroundTint="@color/jordy_blue"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMain"
