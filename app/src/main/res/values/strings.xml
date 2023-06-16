@@ -35,5 +35,12 @@
     <!-- AddCardActivity -->
     <string name="front_text">Front Text</string>
     <string name="back_text">Back Text</string>
+    <string name="playMenuItem">PlayMenuItem</string>
+    <string name="play_course_action_text">Play Course</string>
+    <string name="share_action_text">Share</string>
+    <string name="add_card_action_text">Add Card</string>
+    <string name="shareMenuItem">shareMenuItem</string>
+    <string name="ParentMenuButton">ParentMenuButton</string>
+    <string name="addCardMenuItem">AddCardMenuItem</string>
 
 </resources>
