@@ -24,6 +24,7 @@ import com.tugraz.studybuddy.presentation.viewmodel.CardViewModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -126,10 +127,16 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course))
         );
 
-        mShareFab.setOnClickListener(
-                //TODO Sharing
-                view -> Toast.makeText(this, "TODO", Toast.LENGTH_SHORT
-                ).show());
+        mShareFab.setOnClickListener(v -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Share course");
+                    builder.setMessage("Do you want to share this course?");
+                    builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        String shareCode = random();
+                        Toast.makeText(getApplicationContext(), "Your share Code is: "+ shareCode, Toast.LENGTH_SHORT).show();
+                    }).setNegativeButton(android.R.string.cancel, null);
+                    builder.create().show();
+        });
 
         mAddFab.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -187,5 +194,9 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
         return true;
+    }
+
+    public static String random() {
+        return UUID.randomUUID().toString().substring(0,5);
     }
 }
