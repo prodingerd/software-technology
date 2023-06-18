@@ -133,6 +133,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                     builder.setMessage("Do you want to share this course?");
                     builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         String shareCode = random();
+                        //String shareCode = courseViewModel.shareCourse(course.getId());
                         Toast.makeText(getApplicationContext(), "Your share Code is: "+ shareCode, Toast.LENGTH_SHORT).show();
                     }).setNegativeButton(android.R.string.cancel, null);
                     builder.create().show();
