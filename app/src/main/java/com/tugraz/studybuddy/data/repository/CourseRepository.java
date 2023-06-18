@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.firestore.SetOptions;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
+import com.tugraz.studybuddy.data.model.SharedCourseModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +18,7 @@ public class CourseRepository extends BaseRepository implements ICourseRepositor
 
     private static final String TAG = "CourseRepository";
     private static final String COURSE_COLLECTION = "courses";
+    private static final String SHARED_COURSE_COLLECTION = "course-codes";
     private static final String CARD_COLLECTION = "cards";
 
     @Inject
@@ -117,5 +120,49 @@ public class CourseRepository extends BaseRepository implements ICourseRepositor
                 .delete()
                 .addOnSuccessListener(unused -> Log.d(TAG, "Success deleting card"))
                 .addOnFailureListener(exception -> Log.w(TAG, "Failure deleting card", exception));
+    }
+
+    public List<SharedCourseModel> getAllSharedCourses() {
+        List<SharedCourseModel> sharedCourses = new ArrayList<>();
+        Log.w(TAG, "get all shared courses");
+        db.collection(SHARED_COURSE_COLLECTION)
+                .addSnapshotListener((value, exception) -> {
+                    if (exception != null) {
+                        Log.w(TAG, "Failure getting documents", exception);
+                    }
+                    if (value != null) {
+                        sharedCourses.addAll(value.toObjects(SharedCourseModel.class));
+                    }
+                });
+
+        return sharedCourses;
+    }
+
+    public boolean checkIfCourseId(String courseId){
+        List<CourseModel> courses = new ArrayList<>();
+        db.collection(COURSE_COLLECTION)
+                .addSnapshotListener((value, exception) -> {
+                    if (exception != null) {
+                        Log.w(TAG, "Failure getting documents", exception);
+                    }
+                    if (value != null) {
+                        courses.addAll(value.toObjects(CourseModel.class));
+                    }
+                });
+        for (CourseModel course : courses) {
+            Log.w(TAG, course.getId() +  courseId);
+            if(course.getId().equals(courseId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addSharedCourse(SharedCourseModel entity) {
+        db.collection(COURSE_COLLECTION)
+                .add(entity)
+                .addOnSuccessListener(document -> Log.d(TAG, "Success adding card"))
+                .addOnFailureListener(exception -> Log.w(TAG, "Failure adding card", exception));
+
     }
 }

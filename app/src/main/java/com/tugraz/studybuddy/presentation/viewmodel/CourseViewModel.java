@@ -36,6 +36,10 @@ public class CourseViewModel extends ViewModel {
         return courseService.updateCourse(id, name, description, examDate);
     }
 
+    public String shareCourse(String id){
+        return courseService.shareCourse(id);
+    }
+
     public void deleteCourse(CourseModel course) {
         courseService.deleteCourse(course);
     }
