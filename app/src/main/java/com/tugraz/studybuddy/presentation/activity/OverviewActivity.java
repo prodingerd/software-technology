@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -69,7 +71,22 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
         });
 
         mShareFab.setOnClickListener(v -> {
-            courseViewModel.cloneCourse("46e97");
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Redeem share code");
+
+            final View customLayout = getLayoutInflater().inflate(R.layout.redeem_share_code_alert, null);
+            builder.setView(customLayout);
+            EditText editTextShareCode = customLayout.findViewById(R.id.editTextShareCode);
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                String sharedCode = editTextShareCode.getText().toString();
+                if (!sharedCode.isEmpty()) {
+                    courseViewModel.cloneCourse(editTextShareCode.getText().toString());
+                } else {
+                    Toast.makeText(getApplicationContext(), "Empty course code!", Toast.LENGTH_SHORT).show();
+                }
+            }).setNegativeButton(android.R.string.cancel, null);
+
+            builder.create().show();
         });
 
         mAddFab.setOnClickListener(v -> startActivity(new Intent(this, AddCourseActivity.class)));
