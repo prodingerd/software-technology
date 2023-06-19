@@ -3,12 +3,10 @@ package com.tugraz.studybuddy.domain.service;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tugraz.studybuddy.data.model.CourseModel;
-import com.tugraz.studybuddy.data.model.SharedCourseModel;
 import com.tugraz.studybuddy.data.repository.CourseRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -46,24 +44,11 @@ public class CourseService {
         return true;
     }
 
-    public String shareCourse(String courseId){
-        CourseModel course =  repository.getCourseById(courseId);
-        if(course.equals(null)){
-
-        }
-        if(!repository.checkIfCourseId(courseId)){
-            return null;
-        }
-        String code = random();
-        repository.addSharedCourse(new SharedCourseModel(courseId, code));
-        return code;
-    }
-
     public void deleteCourse(CourseModel course) {
         repository.delete(course);
     }
 
-    public static String random() {
-        return UUID.randomUUID().toString().substring(0,5);
+    public void cloneCourse(String shareCode) {
+        repository.cloneByShareCode(shareCode);
     }
 }

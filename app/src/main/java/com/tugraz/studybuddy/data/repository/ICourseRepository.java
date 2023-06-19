@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface ICourseRepository extends IGenericRepository<CourseModel> {
 
+    void cloneByShareCode(String shareCode);
+
     MutableLiveData<List<CardModel>> getAllCards(String courseId);
 
     void addCard(String courseId, CardModel entity);
