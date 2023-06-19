@@ -47,14 +47,11 @@ public class CourseService {
     }
 
     public String shareCourse(String courseId){
-        List<SharedCourseModel> sharedCourses =  repository.getAllSharedCourses();
-        for (SharedCourseModel sharedCourse : sharedCourses) {
-            if(sharedCourse.getCourseId().equals(courseId)){
-                return sharedCourse.getCode();
-            }
+        CourseModel course =  repository.getCourseById(courseId);
+        if(course.equals(null)){
+
         }
         if(!repository.checkIfCourseId(courseId)){
-
             return null;
         }
         String code = random();
