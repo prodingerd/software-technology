@@ -24,7 +24,6 @@ import com.tugraz.studybuddy.presentation.viewmodel.CardViewModel;
 import com.tugraz.studybuddy.presentation.viewmodel.CourseViewModel;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -83,7 +82,6 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
         });
 
         FloatingActionButton mFab, mAddFab, mShareFab, mPlayFab;
-
         TextView addActionText, shareActionText, playActionText;
 
         mFab = findViewById(R.id.add_fab);
@@ -127,17 +125,9 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course))
         );
 
-        mShareFab.setOnClickListener(v -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Share course");
-                    builder.setMessage("Do you want to share this course?");
-                    builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                        String shareCode = random();
-                        //String shareCode = courseViewModel.shareCourse(course.getId());
-                        Toast.makeText(getApplicationContext(), "Your share Code is: "+ shareCode, Toast.LENGTH_SHORT).show();
-                    }).setNegativeButton(android.R.string.cancel, null);
-                    builder.create().show();
-        });
+        mShareFab.setOnClickListener(v ->
+                Toast.makeText(getApplicationContext(), "Your share Code is: " + course.getShareCode(), Toast.LENGTH_SHORT).show()
+        );
 
         mAddFab.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -177,7 +167,7 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             String frontText = editTextFrontText.getText().toString();
             String backText = editTextBackText.getText().toString();
 
-            if (!cardViewModel.updateCard(card.getId(),frontText, backText)) {
+            if (!cardViewModel.updateCard(card.getId(), frontText, backText)) {
                 Toast.makeText(getApplicationContext(), "Failed to update card!", Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton(android.R.string.cancel, null);
@@ -195,9 +185,5 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
         return true;
-    }
-
-    public static String random() {
-        return UUID.randomUUID().toString().substring(0,5);
     }
 }

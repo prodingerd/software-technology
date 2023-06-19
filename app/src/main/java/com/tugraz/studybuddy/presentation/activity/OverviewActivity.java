@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,9 +37,7 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
         });
 
         FloatingActionButton mFab, mAddFab, mShareFab;
-
         TextView addActionText, shareActionText;
-
 
         mFab = findViewById(R.id.add_fab);
 
@@ -71,10 +68,9 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
             }
         });
 
-        mShareFab.setOnClickListener(
-                //TODO Sharing
-                view -> Toast.makeText(this, "TODO", Toast.LENGTH_SHORT
-                ).show());
+        mShareFab.setOnClickListener(v -> {
+            courseViewModel.cloneCourse("46e97");
+        });
 
         mAddFab.setOnClickListener(v -> startActivity(new Intent(this, AddCourseActivity.class)));
     }
