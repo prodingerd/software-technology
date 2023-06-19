@@ -4,13 +4,18 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.tugraz.studybuddy.data.model.CardModel;
 import com.tugraz.studybuddy.data.model.CourseModel;
 import com.tugraz.studybuddy.data.model.SharedCourseModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -122,20 +127,22 @@ public class CourseRepository extends BaseRepository implements ICourseRepositor
                 .addOnFailureListener(exception -> Log.w(TAG, "Failure deleting card", exception));
     }
 
-    public List<SharedCourseModel> getAllSharedCourses() {
+    public CourseModel getCourseById(String courseId) {
         List<SharedCourseModel> sharedCourses = new ArrayList<>();
         Log.w(TAG, "get all shared courses");
-        db.collection(SHARED_COURSE_COLLECTION)
-                .addSnapshotListener((value, exception) -> {
-                    if (exception != null) {
-                        Log.w(TAG, "Failure getting documents", exception);
-                    }
-                    if (value != null) {
-                        sharedCourses.addAll(value.toObjects(SharedCourseModel.class));
-                    }
-                });
-
-        return sharedCourses;
+        DocumentReference ref = db.collection(COURSE_COLLECTION).document(courseId);
+        DocumentSnapshot tmp;
+        try {
+            tmp = Tasks.await(ref.get());
+            if(tmp.exists()){
+                return tmp.toObject(CourseModel.class);
+            }
+            return null;
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean checkIfCourseId(String courseId){
