@@ -31,8 +31,8 @@
     <string name="play_course">Play</string>
     <string name="edit_course">Edit</string>
 
-
     <!-- AddCardActivity -->
+    <string name="share_code">Share Code</string>
     <string name="front_text">Front Text</string>
     <string name="back_text">Back Text</string>
     <string name="playMenuItem">PlayMenuItem</string>
@@ -42,8 +42,8 @@
     <string name="shareMenuItem">shareMenuItem</string>
     <string name="ParentMenuButton">ParentMenuButton</string>
     <string name="addCardMenuItem">AddCardMenuItem</string>
-    <string name="add_shared_course">Add shared course</string>
-    <string name="add_new_course">Add new Course</string>
-    <string name="addCourseMenuItem">\n</string>
+    <string name="add_shared_course">Redeem Share Code</string>
+    <string name="add_new_course">Add Course</string>
+    <string name="addCourseMenuItem">addMenuItem</string>
 
 </resources>
