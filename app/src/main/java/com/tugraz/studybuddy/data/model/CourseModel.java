@@ -2,6 +2,7 @@ package com.tugraz.studybuddy.data.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class CourseModel extends BaseModel {
 
@@ -10,6 +11,7 @@ public class CourseModel extends BaseModel {
     private String name;
     private String description;
     private String userId;
+    private String shareCode;
     private long examDate;
 
     public CourseModel() {}
@@ -18,12 +20,14 @@ public class CourseModel extends BaseModel {
         this.setId(id);
         this.name = name;
         this.description = description;
+        this.shareCode = UUID.randomUUID().toString().substring(0, 5);
         this.examDate = examDate.toEpochDay();
     }
 
     public CourseModel(String name, String description, LocalDate examDate) {
         this.name = name;
         this.description = description;
+        this.shareCode = UUID.randomUUID().toString().substring(0, 5);
         this.examDate = examDate.toEpochDay();
     }
 
@@ -49,6 +53,14 @@ public class CourseModel extends BaseModel {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getShareCode() {
+        return shareCode;
+    }
+
+    public void setShareCode(String shareCode) {
+        this.shareCode = shareCode;
     }
 
     public LocalDate prettyExamDate() {

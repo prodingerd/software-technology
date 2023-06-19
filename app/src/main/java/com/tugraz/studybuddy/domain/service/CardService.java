@@ -23,7 +23,7 @@ public class CardService {
     }
 
     public boolean createCard(String courseId, String frontText, String backText) {
-        if (frontText.isEmpty() || backText.isEmpty()) {
+        if (courseId.isEmpty() || frontText.isEmpty() || backText.isEmpty()) {
             return false;
         }
 
