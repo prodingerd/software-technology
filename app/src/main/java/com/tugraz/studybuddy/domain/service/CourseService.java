@@ -19,8 +19,8 @@ public class CourseService {
         this.repository = repository;
     }
 
-    public MutableLiveData<List<CourseModel>> getAllCourses() {
-        return repository.getAll();
+    public MutableLiveData<List<CourseModel>> getAllCourses(boolean includeDeleted) {
+        return repository.getAll(includeDeleted);
     }
 
     public boolean createCourse(String name, String description, String examDate) {
@@ -46,6 +46,11 @@ public class CourseService {
 
     public void deleteCourse(CourseModel course) {
         repository.delete(course);
+    }
+
+    public void setCourseToDeleted(CourseModel course, boolean deleted) {
+        course.setDeleted(deleted);
+        repository.update(course);
     }
 
     public void cloneCourse(String shareCode) {

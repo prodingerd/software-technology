@@ -18,6 +18,9 @@
     <string name="delete_title">Delete Course</string>
     <string name="delete_message_course">Are you sure you want to delete this course?</string>
 
+    <string name="recover_title">Recover Course</string>
+    <string name="recover_message_course">Do you want to recover this course?</string>
+
     <!-- AddCourseActivity -->
     <string name="course_name">Course Name</string>
     <string name="course_description">Course Description</string>

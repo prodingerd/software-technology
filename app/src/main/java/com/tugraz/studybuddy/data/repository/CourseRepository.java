@@ -77,11 +77,12 @@ public class CourseRepository extends BaseRepository implements ICourseRepositor
     }
 
     @Override
-    public MutableLiveData<List<CourseModel>> getAll() {
+    public MutableLiveData<List<CourseModel>> getAll(boolean includeDeleted) {
         var liveCourses = new MutableLiveData<List<CourseModel>>();
 
         db.collection(COURSE_COLLECTION)
                 .whereEqualTo("userId", getCurrentUserId())
+                .whereEqualTo("deleted", includeDeleted)
                 .addSnapshotListener((value, exception) -> {
                     if (exception != null) {
                         Log.w(TAG, "Failure getting courses", exception);

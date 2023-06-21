@@ -6,13 +6,15 @@ import java.util.UUID;
 
 public class CourseModel extends BaseModel {
 
-    public static final List<String> MUTABLE_FIELDS = List.of("updatedAt", "name", "description", "examDate");
+    public static final List<String> MUTABLE_FIELDS = List.of("updatedAt", "name", "description", "examDate", "deleted");
 
     private String name;
     private String description;
     private String userId;
     private String shareCode;
     private long examDate;
+
+    private boolean deleted;
 
     public CourseModel() {}
 
@@ -22,6 +24,7 @@ public class CourseModel extends BaseModel {
         this.description = description;
         this.shareCode = UUID.randomUUID().toString().substring(0, 5);
         this.examDate = examDate.toEpochDay();
+        this.deleted = false;
     }
 
     public CourseModel(String name, String description, LocalDate examDate) {
@@ -29,6 +32,7 @@ public class CourseModel extends BaseModel {
         this.description = description;
         this.shareCode = UUID.randomUUID().toString().substring(0, 5);
         this.examDate = examDate.toEpochDay();
+        this.deleted = false;
     }
 
     public String getName() {
@@ -74,4 +78,8 @@ public class CourseModel extends BaseModel {
     public void setExamDate(long examDate) {
         this.examDate = examDate;
     }
+
+    public boolean getDeleted() { return deleted; }
+
+    public void setDeleted(boolean deleted) { this.deleted = deleted; }
 }
