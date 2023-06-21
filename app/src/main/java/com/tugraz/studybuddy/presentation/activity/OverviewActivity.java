@@ -38,35 +38,42 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
             courseRecycler.setLayoutManager(new LinearLayoutManager(this));
         });
 
-        FloatingActionButton mFab, mAddFab, mShareFab;
-        TextView addActionText, shareActionText;
+        FloatingActionButton mFab, mAddFab, mShareFab, mRecycleFab;
+        TextView addActionText, shareActionText, recycleActionText;
 
         mFab = findViewById(R.id.add_fab);
 
         mAddFab = findViewById(R.id.add_course_fab);
         mShareFab = findViewById(R.id.share_fab);
+        mRecycleFab = findViewById(R.id.bin_fab);
 
         addActionText = findViewById(R.id.add_course_action_text);
         shareActionText = findViewById(R.id.share_action_text);
+        recycleActionText = findViewById(R.id.recycle_action_text);
 
         mAddFab.setVisibility(View.GONE);
         mShareFab.setVisibility(View.GONE);
+        mRecycleFab.setVisibility(View.GONE);
 
         addActionText.setVisibility(View.GONE);
         shareActionText.setVisibility(View.GONE);
+        recycleActionText.setVisibility(View.GONE);
 
         mFab.setOnClickListener(view -> {
             if (mAddFab.getVisibility() == View.GONE) {
                 mAddFab.show();
                 mShareFab.show();
+                mRecycleFab.show();
                 addActionText.setVisibility(View.VISIBLE);
                 shareActionText.setVisibility(View.VISIBLE);
-
+                recycleActionText.setVisibility(View.VISIBLE);
             } else {
                 mAddFab.setVisibility(View.GONE);
                 mShareFab.setVisibility(View.GONE);
+                mRecycleFab.setVisibility(View.GONE);
                 addActionText.setVisibility(View.GONE);
                 shareActionText.setVisibility(View.GONE);
+                recycleActionText.setVisibility(View.GONE);
             }
         });
 
@@ -87,6 +94,10 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
             }).setNegativeButton(android.R.string.cancel, null);
 
             builder.create().show();
+        });
+
+        mRecycleFab.setOnClickListener(v -> {
+            Toast.makeText(getApplicationContext(), "Recycle Bin", Toast.LENGTH_SHORT).show();
         });
 
         mAddFab.setOnClickListener(v -> startActivity(new Intent(this, AddCourseActivity.class)));
