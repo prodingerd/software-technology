@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toTopOf="@+id/share_fab"
         app:layout_constraintEnd_toEndOf="@+id/share_fab"
         app:layout_constraintStart_toStartOf="@+id/share_fab"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/icons8_trash_24" />
 
     <TextView
         android:id="@+id/recycle_action_text"
