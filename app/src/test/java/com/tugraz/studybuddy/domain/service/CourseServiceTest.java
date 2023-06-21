@@ -30,8 +30,8 @@ public class CourseServiceTest {
 
     @Test
     public void givenEmptyRepository_whenGetAll_thenReturnEmptyList() {
-        Mockito.when(courseRepositoryMock.getAll()).thenReturn(new MutableLiveData<List<CourseModel>>());
-        Assert.assertNull(courseService.getAllCourses().getValue());
+        Mockito.when(courseRepositoryMock.getAll(true)).thenReturn(new MutableLiveData<List<CourseModel>>());
+        Assert.assertNull(courseService.getAllCourses(true).getValue());
     }
 
     @Test

@@ -26,13 +26,13 @@ public class CourseViewModelTest {
 
     @Before
     public void setUp() {
-        Mockito.when(courseServiceMock.getAllCourses()).thenReturn(new MutableLiveData<List<CourseModel>>());
+        Mockito.when(courseServiceMock.getAllCourses(false)).thenReturn(new MutableLiveData<List<CourseModel>>());
         courseViewModel = new CourseViewModel(courseServiceMock);
     }
 
     @Test
     public void givenEmptyRepository_whenGetAllCourses_thenReturnEmptyList() {
-        Assert.assertNull(courseViewModel.getAllCourses().getValue());
+        Assert.assertNull(courseViewModel.getAllCourses(false).getValue());
     }
 
     @Test
