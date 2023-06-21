@@ -39,7 +39,9 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
         });
 
         FloatingActionButton mFab, mAddFab, mShareFab, mRecycleFab;
-        TextView addActionText, shareActionText, recycleActionText;
+        TextView addActionText;
+        TextView shareActionText;
+        TextView recycleActionText;
 
         mFab = findViewById(R.id.add_fab);
 

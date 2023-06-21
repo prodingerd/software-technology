@@ -16,12 +16,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class CourseViewModel extends ViewModel {
 
     private final CourseService courseService;
-    private final MutableLiveData<List<CourseModel>> courses;
+    //private final MutableLiveData<List<CourseModel>> courses;
 
     @Inject
     public CourseViewModel(CourseService courseService) {
         this.courseService = courseService;
-        this.courses = courseService.getAllCourses(false);
+        //this.courses = courseService.getAllCourses(false);
     }
 
     public MutableLiveData<List<CourseModel>> getAllCourses(boolean includeDeleted) {
