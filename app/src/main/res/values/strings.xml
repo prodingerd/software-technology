@@ -21,6 +21,9 @@
     <string name="recover_title">Recover Course</string>
     <string name="recover_message_course">Do you want to recover this course?</string>
 
+    <string name="share_title">Share Course</string>
+    <string name="share_message_course">Your share Code is: %1$s</string>
+
     <!-- AddCourseActivity -->
     <string name="course_name">Course Name</string>
     <string name="course_description">Course Description</string>
