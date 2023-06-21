@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IGenericRepository<T> {
 
-    MutableLiveData<List<T>> getAll();
+    MutableLiveData<List<T>> getAll(boolean includeDeleted);
 
     void add(T entity);
 

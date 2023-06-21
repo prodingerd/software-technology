@@ -33,7 +33,7 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
         CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
         RecyclerView courseRecycler = findViewById(R.id.recyclerViewMain);
 
-        courseViewModel.getAllCourses().observe(this, courses -> {
+        courseViewModel.getAllCourses(false).observe(this, courses -> {
             courseRecycler.setAdapter(new CourseAdapter(courses, this));
             courseRecycler.setLayoutManager(new LinearLayoutManager(this));
         });
@@ -96,10 +96,7 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
             builder.create().show();
         });
 
-        mRecycleFab.setOnClickListener(v -> {
-            Toast.makeText(getApplicationContext(), "Recycle Bin", Toast.LENGTH_SHORT).show();
-        });
-
+        mRecycleFab.setOnClickListener(v -> startActivity(new Intent(this, RecycleBinActivity.class)));
         mAddFab.setOnClickListener(v -> startActivity(new Intent(this, AddCourseActivity.class)));
     }
 
@@ -116,7 +113,7 @@ public class OverviewActivity extends AppCompatActivity implements IClickListene
         new AlertDialog.Builder(this)
                 .setTitle(R.string.delete_title)
                 .setMessage(R.string.delete_message_course)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> courseViewModel.deleteCourse(course))
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> courseViewModel.setCourseToDeleted(course, true))
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
         return true;
