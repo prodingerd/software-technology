@@ -21,11 +21,11 @@ public class CourseViewModel extends ViewModel {
     @Inject
     public CourseViewModel(CourseService courseService) {
         this.courseService = courseService;
-        this.courses = courseService.getAllCourses();
+        this.courses = courseService.getAllCourses(false);
     }
 
-    public MutableLiveData<List<CourseModel>> getAllCourses() {
-        return courses;
+    public MutableLiveData<List<CourseModel>> getAllCourses(boolean includeDeleted) {
+        return courseService.getAllCourses(includeDeleted);
     }
 
     public boolean createCourse(String name, String description, String examDate) {
@@ -38,6 +38,10 @@ public class CourseViewModel extends ViewModel {
 
     public void deleteCourse(CourseModel course) {
         courseService.deleteCourse(course);
+    }
+
+    public void setCourseToDeleted(CourseModel course, boolean deleted) {
+        courseService.setCourseToDeleted(course, deleted);
     }
 
     public void cloneCourse(String shareCode) {
