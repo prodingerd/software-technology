@@ -3,6 +3,7 @@ package com.tugraz.studybuddy.presentation.activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -125,9 +126,14 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
                 startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course))
         );
 
-        mShareFab.setOnClickListener(v ->
-                Toast.makeText(getApplicationContext(), "Your share Code is: " + course.getShareCode(), Toast.LENGTH_SHORT).show()
-        );
+        Resources res = getResources();
+        mShareFab.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.share_title)
+                    .setMessage(String.format(res.getString(R.string.share_message_course), course.getShareCode()))
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
+        });
 
         mAddFab.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
