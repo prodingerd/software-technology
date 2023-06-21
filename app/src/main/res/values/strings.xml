@@ -45,5 +45,7 @@
     <string name="add_shared_course">Redeem Share Code</string>
     <string name="add_new_course">Add Course</string>
     <string name="addCourseMenuItem">addMenuItem</string>
+    <string name="recycle_bin_text">Recycle Bin</string>
+    <string name="title_activity_recycle_bin">RecycleBinActivity</string>
 
 </resources>
