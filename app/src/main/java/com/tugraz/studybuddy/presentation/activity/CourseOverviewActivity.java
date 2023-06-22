@@ -122,9 +122,10 @@ public class CourseOverviewActivity extends AppCompatActivity implements IClickL
             }
         });
 
-        mPlayFab.setOnClickListener(v ->
-                startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course))
-        );
+        mPlayFab.setOnClickListener(v -> {
+            courseViewModel.incrementPlayCount(course);
+            startActivity(new Intent(this, PlayCourseActivity.class).putExtra("course", course));
+        });
 
         Resources res = getResources();
         mShareFab.setOnClickListener(v -> {
