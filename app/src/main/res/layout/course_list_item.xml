@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -8,6 +9,7 @@
     android:paddingBottom="10dp">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,6 +31,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="16sp" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/course_exam_date"
+        android:layout_width="117dp"
+        android:layout_height="19dp"
+        android:layout_weight="1"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/course_played_count"
+        android:layout_width="116dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_exam_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
