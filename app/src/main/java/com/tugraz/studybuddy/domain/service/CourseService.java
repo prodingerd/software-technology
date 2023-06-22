@@ -56,4 +56,9 @@ public class CourseService {
     public void cloneCourse(String shareCode) {
         repository.cloneByShareCode(shareCode);
     }
+
+    public void incrementPlayCount(CourseModel course){
+        course.setPlayedCount(course.getPlayedCount() + 1);
+        repository.update(course);
+    }
 }

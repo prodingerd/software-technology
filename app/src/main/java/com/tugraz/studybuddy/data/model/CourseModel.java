@@ -6,13 +6,14 @@ import java.util.UUID;
 
 public class CourseModel extends BaseModel {
 
-    public static final List<String> MUTABLE_FIELDS = List.of("updatedAt", "name", "description", "examDate", "deleted");
+    public static final List<String> MUTABLE_FIELDS = List.of("updatedAt", "name", "description", "examDate", "playedCount", "deleted");
 
     private String name;
     private String description;
     private String userId;
     private String shareCode;
     private long examDate;
+    private int playedCount;
 
     private boolean deleted;
 
@@ -78,6 +79,10 @@ public class CourseModel extends BaseModel {
     public void setExamDate(long examDate) {
         this.examDate = examDate;
     }
+
+    public int getPlayedCount() {return playedCount;}
+
+    public void setPlayedCount(int playedCount) {this.playedCount = playedCount;}
 
     public boolean getDeleted() { return deleted; }
 
